@@ -1,5 +1,9 @@
 # Vagrant Testing Tool/Library
 
+**Work-in-progress:** This library is not ready for general use yet and
+is under active development. The documentation will become much better once
+this is more easily usable.
+
 `vagrant-testlib` is both a library and command-line tool for testing
 Vagrant plugins, and is also used to test the core components of Vagrant
 itself.
