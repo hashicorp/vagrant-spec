@@ -1,3 +1,4 @@
+require "rspec"
 require "thor"
 
 require "vagrant-spec/acceptance"
