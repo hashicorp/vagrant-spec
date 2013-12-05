@@ -10,6 +10,12 @@ module Vagrant
           @world = RSpec::Core::World.new
         end
 
+        def components
+          with_world do
+            Components.components
+          end
+        end
+
         def run(components)
           args = [
             "--color",
@@ -17,7 +23,6 @@ module Vagrant
           ]
 
           with_world do
-            # Run!
             RSpec::Core::Runner.run(args)
           end
         end
