@@ -16,10 +16,14 @@ shared_context "acceptance" do
   #
   # @return [Acceptance::IsolatedEnvironment]
   def new_environment(env=nil)
-    apps = { "vagrant" => config.vagrant_path }
-    env  = config.env.merge(env || {})
+    #apps = { "vagrant" => config.vagrant_path }
+    #env  = config.env.merge(env || {})
+    apps = {}
+    env = {}
 
-    Vagrant::Spec::AcceptanceIsolatedEnvironment.new(apps, env)
+    Vagrant::Spec::AcceptanceIsolatedEnvironment.new(
+      apps: apps,
+      env: env)
   end
 
   # Executes the given command in the context of the isolated environment.
