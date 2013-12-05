@@ -17,20 +17,6 @@ module Vagrant
           ]
 
           with_world do
-            # Define the provider example group
-            Acceptance.config.providers.each do |name, opts|
-              g = RSpec::Core::ExampleGroup.describe(
-                "provider: #{name}", component: "provider/#{name}")
-
-              # Include any extra contexts defined
-              (opts[:contexts] || []).each do |context|
-                g.include_context(context)
-              end
-
-              g.it_should_behave_like("provider/basic", name, opts)
-              g.register
-            end
-
             # Run!
             RSpec::Core::Runner.run(args)
           end
@@ -42,15 +28,30 @@ module Vagrant
           # Reset the world so we don't have any components
           @world.example_groups.clear
 
+          # Set the world
+          old_world = RSpec.world
+          RSpec.world = @world
+
           # Load the components
           Components.load_default!
           @paths.each do |path|
             Components.load_from!(path)
           end
 
-          # Set the world
-          old_world = RSpec.world
-          RSpec.world = @world
+          # Define the provider example group
+          Acceptance.config.providers.each do |name, opts|
+            g = RSpec::Core::ExampleGroup.describe(
+              "provider: #{name}", component: "provider/#{name}")
+
+            # Include any extra contexts defined
+            (opts[:contexts] || []).each do |context|
+              g.include_context(context)
+            end
+
+            g.it_should_behave_like("provider/basic", name, opts)
+            g.register
+          end
+
           yield
         ensure
           RSpec.world = old_world
