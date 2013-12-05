@@ -1,12 +1,12 @@
-# Vagrant Testing Tool/Library
+# Vagrant Spec
 
 **Work-in-progress:** This library is not ready for general use yet and
 is under active development. The documentation will become much better once
 this is more easily usable.
 
-`vagrant-testlib` is both a library and command-line tool for testing
-Vagrant plugins, and is also used to test the core components of Vagrant
-itself.
+`vagrant-spec` is a both a specification of how Vagrant and its various
+components should behave as well as a library of testing helpers that
+let you write your own unit and acceptance tests for Vagrant.
 
 The library provides a set of helper methods in addition to
 [RSpec](https://github.com/rspec/rspec) matchers and expectations to help

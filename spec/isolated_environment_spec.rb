@@ -1,6 +1,6 @@
-require "vagrant-testlib/isolated_environment"
+require "vagrant-spec/isolated_environment"
 
-describe Vagrant::Testlib::IsolatedEnvironment do
+describe Vagrant::Spec::IsolatedEnvironment do
   after do
     subject.close
   end

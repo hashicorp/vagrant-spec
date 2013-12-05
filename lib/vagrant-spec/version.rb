@@ -1,5 +1,5 @@
 module Vagrant
-  module Testlib
+  module Spec
     VERSION = "0.0.1"
   end
 end

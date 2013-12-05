@@ -3,7 +3,7 @@ require "pathname"
 require "tmpdir"
 
 module Vagrant
-  module Testlib
+  module Spec
     # This class manages an isolated environment for Vagrant to
     # run in. It creates a temporary directory to act as the
     # working directory as well as sets a custom home directory.

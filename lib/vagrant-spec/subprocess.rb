@@ -5,7 +5,7 @@ require 'childprocess'
 require 'log4r'
 
 module Vagrant
-  module Testlib
+  module Spec
     # Execute a command in a subprocess, gathering the results and
     # exit status.
     #
@@ -28,7 +28,7 @@ module Vagrant
       def initialize(command, *args, **options)
         @command = [command.dup].concat(args)
         @options = options
-        @logger  = Log4r::Logger.new("vagrant::testlib::subprocess")
+        @logger  = Log4r::Logger.new("vagrant::spec::subprocess")
       end
 
       def execute

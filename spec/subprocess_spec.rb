@@ -1,6 +1,6 @@
-require "vagrant-testlib/subprocess"
+require "vagrant-spec/subprocess"
 
-describe Vagrant::Testlib::Subprocess do
+describe Vagrant::Spec::Subprocess do
   it "should run and return output" do
     result = described_class.execute("echo", "foo")
     expect(result.stdout).to eql("foo\n")

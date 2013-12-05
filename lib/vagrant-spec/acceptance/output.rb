@@ -1,5 +1,5 @@
 module Vagrant
-  module Testlib
+  module Spec
     # OutputTester tests text for output by checking against a global
     # registry of testers in the $output global variable. If the tester
     # returns true, then it matches, otherwise it doesn't match.

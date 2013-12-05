@@ -1,6 +1,6 @@
-require "vagrant-testlib/acceptance/isolated_environment"
+require "vagrant-spec/acceptance/isolated_environment"
 
-describe Vagrant::Testlib::AcceptanceIsolatedEnvironment do
+describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
   after do
     subject.close
   end
@@ -8,7 +8,7 @@ describe Vagrant::Testlib::AcceptanceIsolatedEnvironment do
   describe "execute" do
     it "should execute the command and return the result" do
       result = Object.new
-      Vagrant::Testlib::Subprocess.
+      Vagrant::Spec::Subprocess.
         should_receive(:execute).with do |command, *args, **options|
         expect(command).to eql("vagrant")
         expect(args).to eql(["up"])
@@ -26,7 +26,7 @@ describe Vagrant::Testlib::AcceptanceIsolatedEnvironment do
       })
 
       result = Object.new
-      Vagrant::Testlib::Subprocess.
+      Vagrant::Spec::Subprocess.
         should_receive(:execute).with do |command, *args, **options|
         expect(command).to eql("/bin/foo")
         expect(args).to eql(["up"])

@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'vagrant-testlib/version'
+require 'vagrant-spec/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "vagrant-testlib"
-  spec.version       = Vagrant::Testlib::VERSION
+  spec.name          = "vagrant-spec"
+  spec.version       = Vagrant::Spec::VERSION
   spec.authors       = ["Mitchell Hashimoto"]
   spec.email         = ["mitchell.hashimoto@gmail.com"]
   spec.description   = %q{Tool and library for testing Vagrant plugins}
   spec.summary       = %q{Tool and library for testing Vagrant plugins.}
-  spec.homepage      = "https://github.com/mitchellh/vagrant-testlib"
+  spec.homepage      = "https://github.com/mitchellh/vagrant-spec"
   spec.license       = "MPL2"
 
   spec.files         = `git ls-files`.split($/)

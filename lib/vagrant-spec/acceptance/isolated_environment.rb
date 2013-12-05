@@ -4,11 +4,11 @@ require "pathname"
 require "log4r"
 require "childprocess"
 
-require "vagrant-testlib/isolated_environment"
-require "vagrant-testlib/subprocess"
+require "vagrant-spec/isolated_environment"
+require "vagrant-spec/subprocess"
 
 module Vagrant
-  module Testlib
+  module Spec
     # This class extends the normal IsolatedEnvironment to add some
     # additional helpers for executing applications within that environment.
     class AcceptanceIsolatedEnvironment < IsolatedEnvironment

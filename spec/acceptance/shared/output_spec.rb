@@ -1,6 +1,6 @@
-require "vagrant-testlib/acceptance/output"
+require "vagrant-spec/acceptance/output"
 
-describe Vagrant::Testlib::OutputTester do
+describe Vagrant::Spec::OutputTester do
   subject { described_class }
 
   let(:registry) { described_class }
