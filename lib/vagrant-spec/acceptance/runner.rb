@@ -26,7 +26,8 @@ module Vagrant
 
             # Define the provider example group
             Acceptance.config.providers.each do |name, opts|
-              g = RSpec::Core::ExampleGroup.describe("provider: #{name}")
+              g = RSpec::Core::ExampleGroup.describe(
+                "provider: #{name}", component: "provider/#{name}")
               g.it_should_behave_like("provider/basic", name)
               g.register
             end
