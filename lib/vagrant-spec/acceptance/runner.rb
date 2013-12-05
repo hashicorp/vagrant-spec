@@ -17,15 +17,6 @@ module Vagrant
           ]
 
           with_world do
-            # Reset the world so we don't have any components
-            @world.example_groups.clear
-
-            # Load the components
-            Components.load_default!
-            @paths.each do |path|
-              Components.load_from!(path)
-            end
-
             # Define the provider example group
             Acceptance.config.providers.each do |name, opts|
               g = RSpec::Core::ExampleGroup.describe(
@@ -48,6 +39,16 @@ module Vagrant
         protected
 
         def with_world
+          # Reset the world so we don't have any components
+          @world.example_groups.clear
+
+          # Load the components
+          Components.load_default!
+          @paths.each do |path|
+            Components.load_from!(path)
+          end
+
+          # Set the world
           old_world = RSpec.world
           RSpec.world = @world
           yield
