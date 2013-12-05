@@ -8,6 +8,8 @@ shared_context "acceptance" do
   # variables to pass in.
   let!(:environment) { new_environment }
 
+  let(:config) { Vagrant::Spec::Acceptance.config }
+
   after(:each) do
     environment.close
   end
@@ -16,10 +18,8 @@ shared_context "acceptance" do
   #
   # @return [Acceptance::IsolatedEnvironment]
   def new_environment(env=nil)
-    #apps = { "vagrant" => config.vagrant_path }
-    #env  = config.env.merge(env || {})
-    apps = {}
-    env = {}
+    apps = { "vagrant" => config.vagrant_path }
+    env  = config.env.merge(env || {})
 
     Vagrant::Spec::AcceptanceIsolatedEnvironment.new(
       apps: apps,

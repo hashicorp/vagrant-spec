@@ -9,6 +9,7 @@ InstalledFiles
 _yardoc
 coverage
 doc/
+local_config.rb
 lib/bundler/man
 pkg
 rdoc

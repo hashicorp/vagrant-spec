@@ -21,9 +21,16 @@ module Vagrant
       end
 
       option :components, type: :array, desc: "components to test. defaults to all"
+      option :config, type: :string, desc: "path to config file to load"
       option :include, type: :array, desc: "additional include paths for specs"
       desc "test", "runs the specs"
       def test
+        require "vagrant-spec/acceptance"
+
+        if options[:config]
+          load options[:config]
+        end
+
         Components.load_default!
         if options[:include]
           options[:include].each { |p| Components.load_from!(p) }
