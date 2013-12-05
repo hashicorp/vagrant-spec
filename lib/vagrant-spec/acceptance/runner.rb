@@ -14,7 +14,6 @@ module Vagrant
           args = ["--format=d",
                   "--color",]
 
-
           with_world do
             # Reset the world so we don't have any components
             @world.example_groups.clear
@@ -23,6 +22,13 @@ module Vagrant
             Components.load_default!
             @paths.each do |path|
               Components.load_from!(path)
+            end
+
+            # Define the provider example group
+            Acceptance.config.providers.each do |name, opts|
+              g = RSpec::Core::ExampleGroup.describe("provider: #{name}")
+              g.it_should_behave_like("provider/basic", name)
+              g.register
             end
 
             # Run!
