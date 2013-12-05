@@ -15,7 +15,7 @@ shared_examples "provider/basic" do |provider, options|
 
     result = execute("vagrant", "ssh", "-c", "echo foo")
     expect(result.exit_code).to eql(0)
-    expect(result.stdout).to eql("foo\n")
+    expect(result.stdout).to match(/foo\n$/)
 
     assert_execute("vagrant", "destroy", "--force")
   end
