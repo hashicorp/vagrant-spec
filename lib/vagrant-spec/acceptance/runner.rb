@@ -45,16 +45,21 @@ module Vagrant
 
           # Define the provider example group
           Acceptance.config.providers.each do |name, opts|
-            g = RSpec::Core::ExampleGroup.describe(
-              "provider: #{name}", component: "provider/#{name}")
+            features = ["basic"]
 
-            # Include any extra contexts defined
-            (opts[:contexts] || []).each do |context|
-              g.include_context(context)
+            features.each do |feature|
+              component = "provider/#{name}/#{feature}"
+              g = RSpec::Core::ExampleGroup.describe(
+                component, component: component)
+
+              # Include any extra contexts defined
+              (opts[:contexts] || []).each do |context|
+                g.include_context(context)
+              end
+
+              g.it_should_behave_like("provider/#{feature}", name, opts)
+              g.register
             end
-
-            g.it_should_behave_like("provider/basic", name, opts)
-            g.register
           end
 
           yield
