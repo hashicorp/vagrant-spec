@@ -11,8 +11,10 @@ module Vagrant
         end
 
         def run(components)
-          args = ["--format=d",
-                  "--color",]
+          args = [
+            "--color",
+            "--format", "Vagrant::Spec::Acceptance::Formatter",
+          ]
 
           with_world do
             # Reset the world so we don't have any components

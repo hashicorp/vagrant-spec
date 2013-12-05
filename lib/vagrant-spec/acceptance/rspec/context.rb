@@ -30,6 +30,7 @@ shared_context "acceptance" do
   #
   # @return [Object]
   def execute(*args, &block)
+    status("Execute: #{args.join(" ")}")
     environment.execute(*args, &block)
   end
 
@@ -43,5 +44,9 @@ shared_context "acceptance" do
       "stdout: #{result.stdout}\n\n" +
       "stderr: #{result.stderr}")
     result
+  end
+
+  def status(message)
+    RSpec.world.reporter.message(message)
   end
 end
