@@ -1,4 +1,4 @@
-require "vagrant-testlib/acceptance/shared/isolated_environment"
+require "vagrant-testlib/acceptance/isolated_environment"
 
 shared_context "acceptance" do
   # Setup the environment so that we have an isolated area

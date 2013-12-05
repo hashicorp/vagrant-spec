@@ -1,4 +1,4 @@
-require "vagrant-testlib/acceptance/shared/output"
+require "vagrant-testlib/acceptance/output"
 
 describe Vagrant::Testlib::OutputTester do
   subject { described_class }

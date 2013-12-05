@@ -1,4 +1,4 @@
-require "vagrant-testlib/acceptance/shared/isolated_environment"
+require "vagrant-testlib/acceptance/isolated_environment"
 
 describe Vagrant::Testlib::AcceptanceIsolatedEnvironment do
   after do
