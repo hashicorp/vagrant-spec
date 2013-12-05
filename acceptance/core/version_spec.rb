@@ -1,15 +1,17 @@
 require "vagrant-spec/acceptance"
 
-describe "vagrant version", component: "vagrant/core" do
+describe "vagrant CLI basics", component: "cli" do
   include_context "acceptance"
 
-  it "prints the version when called with '-v'" do
-    result = execute("vagrant", "-v")
-    expect(result.stdout).to match_output(:version)
-  end
+  describe "vagrant version" do
+    it "prints the version when called with '-v'" do
+      result = execute("vagrant", "-v")
+      expect(result.stdout).to match_output(:version)
+    end
 
-  it "prints the version when called with '--version'" do
-    result = execute("vagrant", "--version")
-    expect(result.stdout).to match_output(:version)
+    it "prints the version when called with '--version'" do
+      result = execute("vagrant", "--version")
+      expect(result.stdout).to match_output(:version)
+    end
   end
 end
