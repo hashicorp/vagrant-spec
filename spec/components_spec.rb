@@ -16,7 +16,7 @@ describe Vagrant::Spec::Components do
 
       c = described_class.components
       expect(c).to_not be_empty
-      expect(c.include?("vagrant/core")).to be_true
+      expect(c.include?("cli")).to be_true
     end
   end
 
@@ -26,7 +26,7 @@ describe Vagrant::Spec::Components do
 
       c = described_class.components
       expect(c).to_not be_empty
-      expect(c.include?("vagrant/core")).to be_true
+      expect(c.include?("cli")).to be_true
     end
   end
 end

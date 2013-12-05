@@ -7,6 +7,9 @@ module Vagrant
         # Additional environmental variables to set for environments.
         attr_reader :env
 
+        # The providers that are configured to be used.
+        attr_reader :providers
+
         # The path to the `vagrant` executable to test. If not specified,
         # this defaults to "vagrant" and it is up to the shell to expand
         # this to whatever is on the PATH.
@@ -14,7 +17,16 @@ module Vagrant
 
         def initialize
           @env          = {}
+          @providers    = {}
           @vagrant_path = "vagrant"
+        end
+
+        # Tells vagrant-spec to acceptance test a certain provider.
+        #
+        # The order in which this is called has no effect on the order
+        # that the tests will actually run in, at the moment.
+        def provider(name, **options)
+          @providers[name.to_s] = options
         end
       end
     end

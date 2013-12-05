@@ -1,7 +1,7 @@
 require "thor"
 
 require "vagrant-spec/components"
-require "vagrant-spec/runner"
+require "vagrant-spec/acceptance/runner"
 
 module Vagrant
   module Spec
@@ -31,13 +31,8 @@ module Vagrant
           load options[:config]
         end
 
-        Components.load_default!
-        if options[:include]
-          options[:include].each { |p| Components.load_from!(p) }
-        end
-
-        components = options[:components] || Components.components
-        Runner.run(components)
+        Acceptance::Runner.new(paths: options[:include]).
+          run(options[:components])
       end
     end
   end
