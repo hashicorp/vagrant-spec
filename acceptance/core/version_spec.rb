@@ -1,4 +1,6 @@
-describe "vagrant version", category: "version", component: "core" do
+require "vagrant-spec/acceptance"
+
+describe "vagrant version", component: "vagrant/core" do
   include_context "acceptance"
 
   it "prints the version when called with '-v'" do

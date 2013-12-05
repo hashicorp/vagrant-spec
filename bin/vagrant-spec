@@ -1,4 +1,7 @@
-#!/usr/bin/env
+#!/usr/bin/env ruby
 
 # This is the command-line runner for acceptance testing various
 # components of Vagrant itself.
+
+require "vagrant-spec/cli"
+Vagrant::Spec::CLI.start(ARGV)
