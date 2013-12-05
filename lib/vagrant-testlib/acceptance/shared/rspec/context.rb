@@ -1,5 +1,4 @@
-require "acceptance/support/isolated_environment"
-require "acceptance/support/output"
+require "vagrant-testlib/acceptance/shared/isolated_environment"
 
 shared_context "acceptance" do
   # Setup the environment so that we have an isolated area
@@ -20,7 +19,7 @@ shared_context "acceptance" do
     apps = { "vagrant" => config.vagrant_path }
     env  = config.env.merge(env || {})
 
-    Acceptance::IsolatedEnvironment.new(apps, env)
+    Vagrant::Testlib::AcceptanceIsolatedEnvironment.new(apps, env)
   end
 
   # Executes the given command in the context of the isolated environment.

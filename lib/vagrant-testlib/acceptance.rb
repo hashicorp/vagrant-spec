@@ -2,6 +2,7 @@
 # tests. It configures the test runner as well if it can detect one.
 
 # The RSpec helpers
+require_relative "acceptance/shared/rspec/context"
 require_relative "acceptance/shared/rspec/matcher_match_output"
 
 # Setup the output global variable. This will track all the registered
