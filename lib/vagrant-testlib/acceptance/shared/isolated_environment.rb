@@ -5,6 +5,7 @@ require "log4r"
 require "childprocess"
 
 require "vagrant-testlib/isolated_environment"
+require "vagrant-testlib/subprocess"
 
 module Vagrant
   module Testlib
@@ -33,17 +34,20 @@ module Vagrant
         # Create the command
         command = replace_command(command)
 
-        # Create the child process that executes the command
-        process = ChildProcess.build(command, *args)
-        process.cwd = @workdir.to_s
-        @env.each do |k, v|
-          process.environment[k] = v
-        end
+        # Build up the options
+        options[:env] = @env
+        options[:notify] = [:stdin, :stderr, :stdout]
+        options[:workdir] = @workdir.to_s
 
-        # TODO(mitchellh): need the output
-        process.start
-        process.wait
+        # Execute, logging out the stdout/stderr as we get it
+        @logger.info("Executing: #{[command].concat(args).inspect}")
+        Subprocess.execute(command, *args, **options) do |type, data|
+          @logger.debug("#{type}: #{data}") if type == :stdout || type == :stderr
+          yield type, data if block_given?
+        end
       end
+
+      protected
 
       # This replaces a command with a replacement defined when this
       # isolated environment was initialized. If nothing was defined,
