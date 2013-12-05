@@ -1,3 +1,5 @@
+require "set"
+
 require "rspec"
 
 module Vagrant
@@ -22,14 +24,16 @@ module Vagrant
             "--format", "Vagrant::Spec::Acceptance::Formatter",
           ]
 
-          with_world do
+          with_world(components) do
             RSpec::Core::Runner.run(args)
           end
         end
 
         protected
 
-        def with_world
+        def with_world(components=nil)
+          components = Set.new(components || [])
+
           # Reset the world so we don't have any components
           @world.example_groups.clear
 
@@ -49,6 +53,11 @@ module Vagrant
 
             features.each do |feature|
               component = "provider/#{name}/#{feature}"
+              if !components.empty? && !components.include?(component)
+                puts "Skipping component: #{component}"
+                next
+              end
+
               g = RSpec::Core::ExampleGroup.describe(
                 component, component: component)
 
