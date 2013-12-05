@@ -27,7 +27,7 @@ module Vagrant
       # recursively load all the Ruby files within this directory
       # that end with "_spec.rb"
       def self.load_from!(path)
-        Dir.glob(path.join("**/*_spec.rb")).each do |single|
+        Dir.glob(path.join("**/*_{output,spec}.rb")).each do |single|
           load single
         end
       end

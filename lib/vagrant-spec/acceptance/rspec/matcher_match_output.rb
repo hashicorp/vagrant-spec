@@ -9,6 +9,7 @@ RSpec::Matchers.define :match_output do |expected, *args|
   end
 
   failure_message_for_should do |actual|
-    "expected output to match: #{expected} #{args.inspect}"
+    "expected output to match: #{expected} #{args.inspect}\n\n" +
+      "output: #{actual}"
   end
 end

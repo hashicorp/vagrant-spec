@@ -1,3 +1,5 @@
+require "vagrant-spec/acceptance/output"
+
 module Vagrant
   module Spec
     # Tests the Vagrant version output
