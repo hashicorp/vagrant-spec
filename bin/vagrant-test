@@ -1,0 +1,4 @@
+#!/usr/bin/env
+
+# This is the command-line runner for acceptance testing various
+# components of Vagrant itself.
