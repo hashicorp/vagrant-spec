@@ -30,6 +30,12 @@ module Vagrant
             Acceptance.config.providers.each do |name, opts|
               g = RSpec::Core::ExampleGroup.describe(
                 "provider: #{name}", component: "provider/#{name}")
+
+              # Include any extra contexts defined
+              (opts[:contexts] || []).each do |context|
+                g.include_context(context)
+              end
+
               g.it_should_behave_like("provider/basic", name, opts)
               g.register
             end
