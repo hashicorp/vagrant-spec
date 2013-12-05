@@ -22,6 +22,11 @@ module Vagrant
 
         # Set the home directory for any apps we execute
         @env["HOME"] = @homedir.to_s
+
+        # Replace some special variables
+        @env.each do |k, v|
+          @env[k] = @homedir.to_s if v == "{{homedir}}"
+        end
       end
 
       # Executes a command in the context of this isolated environment.
