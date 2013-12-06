@@ -18,7 +18,7 @@ shared_examples "provider/provisioner/shell" do |provider, options|
 
   it "provisions with the shell script" do
     result = execute("vagrant", "ssh", "-c", "cat ~/foo")
-    expect(result.exit_code).to eql(0)
+    expect(result).to exit_with(0)
     expect(result.stdout).to match(/foo\n$/)
   end
 end
