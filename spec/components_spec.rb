@@ -1,32 +1,34 @@
+require "fileutils"
+require "pathname"
+require "tmpdir"
+
 require "vagrant-spec/components"
 
 describe Vagrant::Spec::Components do
-  before do
-    @old_world = RSpec.world
-    RSpec.world = RSpec::Core::World.new
-  end
+  let(:world) { RSpec::Core::World.new }
+  let(:paths) { [Pathname.new(Dir.mktmpdir)] }
+
+  subject { described_class.new(world, paths) }
 
   after do
-    RSpec.world = @old_world
-  end
-
-  describe "load_default!" do
-    it "knows about the default components" do
-      described_class.load_default!
-
-      c = described_class.components
-      expect(c).to_not be_empty
-      expect(c.include?("cli")).to be_true
+    paths.each do |path|
+      FileUtils.rmtree(path)
     end
   end
 
-  describe "load_from!" do
-    it "loads components" do
-      described_class.load_from!(Vagrant::Spec.source_root.join("acceptance"))
+  it "should have no components to start" do
+    expect(subject.components).to be_empty
+  end
 
-      c = described_class.components
-      expect(c).to_not be_empty
-      expect(c.include?("cli")).to be_true
+  it "can load the components" do
+    paths[0].join("foo_spec.rb").open("w") do |f|
+      f.write(<<-CONTENT)
+describe "foo", component: "foo" do
+end
+CONTENT
     end
+
+    subject.reload!
+    expect(subject.components).to eql(["foo"])
   end
 end

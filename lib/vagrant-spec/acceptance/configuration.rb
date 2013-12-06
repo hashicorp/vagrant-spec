@@ -1,9 +1,16 @@
+require "vagrant-spec"
+
 module Vagrant
   module Spec
     module Acceptance
-    # Configuration is the configuration for the Vagrant spec
+      # Configuration is the configuration for the Vagrant spec
       # acceptance tests.
       class Configuration
+        # Paths to various components. This by default contains the
+        # built-in components. You should _append_ to this to add more
+        # paths.
+        attr_accessor :component_paths
+
         # Additional environmental variables to set for environments.
         attr_reader :env
 
@@ -20,6 +27,10 @@ module Vagrant
         attr_accessor :vagrant_path
 
         def initialize
+          @component_paths = [
+            Vagrant::Spec.source_root.join("acceptance"),
+          ]
+
           @env            = {}
           @providers      = {}
           @skeleton_paths = []

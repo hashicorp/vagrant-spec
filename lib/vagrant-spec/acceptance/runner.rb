@@ -8,14 +8,12 @@ module Vagrant
       # The runner configures RSpec to run the given components.
       class Runner
         def initialize(paths: nil)
-          @paths = paths || []
           @world = RSpec::Core::World.new
+          @components = Components.new(@world, paths || [])
         end
 
         def components
-          with_world do
-            Components.components
-          end
+          @components.components
         end
 
         def run(components)
@@ -34,18 +32,12 @@ module Vagrant
         def with_world(components=nil)
           components = Set.new(components || [])
 
-          # Reset the world so we don't have any components
-          @world.example_groups.clear
-
           # Set the world
           old_world = RSpec.world
           RSpec.world = @world
 
           # Load the components
-          Components.load_default!
-          @paths.each do |path|
-            Components.load_from!(path)
-          end
+          @components.reload!
 
           # Define the provider example group
           Acceptance.config.providers.each do |name, opts|
