@@ -12,9 +12,10 @@ The library provides a set of helper methods in addition to
 [RSpec](https://github.com/rspec/rspec) matchers and expectations to help
 you both unit test and acceptance test Vagrant components. The RSpec
 components are built on top of the helper methods so that the test library
-can be used with your test framework of choice.
+can be used with your test framework of choice, but the entire tool is
+geared very heavily towards RSpec.
 
-**Table of Contents** 
+**Table of Contents**
 
 - [Running Acceptance Tests](#running-acceptance-tests)
 	- [Configuration](#configuration)
@@ -42,7 +43,7 @@ acceptance tests that can easily be executed in the context of Vagrant.
 ### Configuration
 
 Before running the acceptance tests, you must first configure
-`vagrant-spec.` Configuration is done by creating the file 
+`vagrant-spec.` Configuration is done by creating the file
 `vagrant-spec.config.rb`. It looks like the following:
 
 ```ruby
@@ -59,7 +60,7 @@ implement what you need.
 
 Running the full suite of acceptance tests can be horribly long.
 It is recommended you only run a component at a time (or a handful
-of components). To view the list of testable components based on 
+of components). To view the list of testable components based on
 your configuration, run `vagrant-spec components`. You might
 see something like the following:
 
@@ -94,7 +95,7 @@ folder.
 
 For `vagrant-spec` to know about new tests you write, you must
 add the path that will hold the Ruby files to the configuration
-"component_paths". These are the paths where the tests are 
+"component_paths". These are the paths where the tests are
 automatically loaded from by `vagrant-spec`. Example:
 
 ```ruby
@@ -103,7 +104,7 @@ Vagrant::Spec::Acceptance.configure do |c|
 end
 ```
 
-If the path is relative, it will be relative to the pwd when 
+If the path is relative, it will be relative to the pwd when
 `vagrant-spec` is executed.
 
 ### Standalone Components
@@ -145,12 +146,12 @@ be able to run it.
 
 Tests that require a provider (basically any test that executes
 `vagrant up`) are known as provider parameterized components. They
-will be executed for every provider under test. 
+will be executed for every provider under test.
 
 These are useful, for example, for provisioners. Provisioners should
 work regardless of what provider is running them. Therefore, if you're
 testing VirtualBox and VMware, you want to be sure that the "shell"
-provisioner works, for example. 
+provisioner works, for example.
 
 Provider parameterized components are implemented as RSpec
 shared examples:
@@ -170,8 +171,8 @@ The key things in this are:
   component. A new component will automatically be created by
   `vagrant-spec` for every provider.
 
-* The `|provider, options|` parameters to the shared example group. 
-  Parameterized components are, as they're named, parameterized. 
+* The `|provider, options|` parameters to the shared example group.
+  Parameterized components are, as they're named, parameterized.
   The two parameters they receive are the provider under test
   as well as any options for that provider.
 
@@ -190,7 +191,7 @@ And you can now run the tests!
 
 ### Helpers
 
-#### Context: "acceptance" 
+#### Context: "acceptance"
 
 The "acceptance" context defines many helpers for executing
 Vagrant within an isolated environment and setting up that
@@ -198,7 +199,7 @@ environment. [See the context source file for detailed docs](https://github.com/
 
 The key features of the context are:
 
-* `execute` is a method for executing commands within the 
+* `execute` is a method for executing commands within the
   isolated environment. The isolated environment prepares a
   empty working directory as well as changes the home directory
   from the point-of-view of executing processes.
