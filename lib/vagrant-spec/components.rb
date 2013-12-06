@@ -18,7 +18,7 @@ module Vagrant
           @world.example_groups.clear
 
           @paths.each do |path|
-            Dir.glob(File.join(path, "**/*.rb")).each do |single|
+            Dir.glob(File.join(path, "**/*_{output,spec}.rb")).each do |single|
               load single
             end
           end
