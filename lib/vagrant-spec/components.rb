@@ -18,7 +18,7 @@ module Vagrant
           @world.example_groups.clear
 
           @paths.each do |path|
-            Dir.glob(File.join(path, "**/*_{output,spec}.rb")).each do |single|
+            Dir.glob(File.join(path, "**/*.rb")).each do |single|
               load single
             end
           end
@@ -35,6 +35,17 @@ module Vagrant
               next if !group.metadata.has_key?(:component)
               result << group.metadata[:component]
             end
+          end
+        end
+      end
+
+      # Returns the defined provider features.
+      def provider_features
+        [].tap do |result|
+          groups = RSpec::Core::SharedExampleGroup.registry.shared_example_groups
+          groups["main"].each do |name, _|
+            match = /^provider\/(.+?)$/.match(name)
+            result << match[1] if match
           end
         end
       end
