@@ -23,6 +23,9 @@ can be used with your test framework of choice.
 	- [Configuring Component Paths](#configuring-component-paths)
 	- [Standalone Components](#standalone-components)
 	- [Provider Parameterized Components](#provider-parameterized-components)
+	- [Helpers](#helpers)
+		- [Context: "acceptance"](#context-acceptance)
+		- [Matcher: "exit_with"](#matcher-exit_with)
 
 ## Running Acceptance Tests
 
