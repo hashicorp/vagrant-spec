@@ -12,6 +12,12 @@ shared_context "acceptance" do
 
   let(:extra_env) { {} }
 
+  # The skeleton paths that will be used to configure environments.
+  let(:skeleton_paths) do
+    root = Vagrant::Spec.source_root.join("acceptance", "skeletons")
+    config.skeleton_paths.dup.unshift(root)
+  end
+
   after(:each) do
     environment.close
   end
@@ -26,7 +32,9 @@ shared_context "acceptance" do
 
     Vagrant::Spec::AcceptanceIsolatedEnvironment.new(
       apps: apps,
-      env: env)
+      env: env,
+      skeleton_paths: skeleton_paths,
+    )
   end
 
   # Executes the given command in the context of the isolated environment.
