@@ -21,5 +21,10 @@ shared_examples "provider/provisioner/chef-solo" do |provider, options|
     result = execute("vagrant", "ssh", "-c", "cat /vagrant-chef-basic")
     expect(result).to exit_with(0)
     expect(result.stdout).to match(/basic$/)
+
+    status("Test: works with roles")
+    result = execute("vagrant", "ssh", "-c", "cat /vagrant-chef-basic-roles")
+    expect(result).to exit_with(0)
+    expect(result.stdout).to match(/basic-roles$/)
   end
 end
