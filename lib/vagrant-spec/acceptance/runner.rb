@@ -53,10 +53,6 @@ module Vagrant
 
             features.each do |feature|
               component = "provider/#{name}/#{feature}"
-              if !components.empty? && !components.include?(component)
-                puts "Skipping component: #{component}"
-                next
-              end
 
               g = RSpec::Core::ExampleGroup.describe(
                 component, component: component)
@@ -68,6 +64,20 @@ module Vagrant
 
               g.it_should_behave_like("provider/#{feature}", name, opts)
               g.register
+            end
+          end
+
+          # Filter out the components
+          if !components.empty?
+            bad = []
+            @world.example_groups.each do |g|
+              next if !g.metadata.has_key?(:component)
+              bad << g if !components.include?(g.metadata[:component])
+            end
+
+            bad.each do |b|
+              puts "Skipping: #{b.metadata[:component]}"
+              @world.example_groups.delete(b)
             end
           end
 
