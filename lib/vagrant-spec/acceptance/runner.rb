@@ -48,8 +48,6 @@ module Vagrant
 
         def prepare_components!
           with_world do
-            @components.reload!
-
             # Define the provider example group
             Acceptance.config.providers.each do |name, opts|
               @components.provider_features.each do |feature|
