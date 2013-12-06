@@ -7,9 +7,6 @@ shared_examples "provider/synced_folder" do |provider, options|
 
   include_context "acceptance"
 
-  # Spin up a single VM to test all the synced folder configuration
-  # for speed. Besides, its a good test to make sure they all work
-  # together.
   before do
     environment.skeleton("synced_folders")
     assert_execute("vagrant", "box", "add", "basic", options[:box_basic])
@@ -20,6 +17,9 @@ shared_examples "provider/synced_folder" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
+  # We put all of this in a single RSpec test so that we can test all
+  # the cases within a single VM rather than having to `vagrant up` many
+  # times.
   it "properly configures synced folder types" do
     status("Test: mounts the default /vagrant synced folder")
     result = execute("vagrant", "ssh", "-c", "cat /vagrant/foo")
