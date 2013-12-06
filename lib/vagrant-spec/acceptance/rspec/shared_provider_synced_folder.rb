@@ -10,22 +10,16 @@ shared_examples "provider/synced_folder" do |provider, options|
   # Spin up a single VM to test all the synced folder configuration
   # for speed. Besides, its a good test to make sure they all work
   # together.
-  around(:all) do |example|
-    begin
-      environment.skeleton("synced_folders")
+  before(:all) do |example|
+    environment.skeleton("synced_folders")
 
-      assert_execute("vagrant", "box", "add", "basic", options[:box_basic])
-      assert_execute("vagrant", "init", "basic")
-      assert_execute("vagrant", "up", "--provider=#{provider}")
+    assert_execute("vagrant", "box", "add", "basic", options[:box_basic])
+    assert_execute("vagrant", "init", "basic")
+    assert_execute("vagrant", "up", "--provider=#{provider}")
+  end
 
-      example.run
-
-      assert_execute("vagrant", "destroy", "--force")
-    ensure
-      # Just do a destroy to be safe, but don't worry about the output
-      # and don't log it.
-      execute("vagrant", "destroy", "--force", log: false)
-    end
+  after(:all) do |example|
+    assert_execute("vagrant", "destroy", "--force")
   end
 
   it "mounts the default /vagrant synced folder" do

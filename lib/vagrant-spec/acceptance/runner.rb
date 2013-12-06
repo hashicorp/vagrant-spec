@@ -49,7 +49,7 @@ module Vagrant
 
           # Define the provider example group
           Acceptance.config.providers.each do |name, opts|
-            features = ["basic"]
+            features = ["basic", "synced_folder"]
 
             features.each do |feature|
               component = "provider/#{name}/#{feature}"
