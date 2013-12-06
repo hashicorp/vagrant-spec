@@ -10,15 +10,20 @@ module Vagrant
         # The providers that are configured to be used.
         attr_reader :providers
 
+        # Paths to folders containing "skeletons" for the tests. This
+        # doesn't really need to be set unless you have custom tests.
+        attr_accessor :skeleton_paths
+
         # The path to the `vagrant` executable to test. If not specified,
         # this defaults to "vagrant" and it is up to the shell to expand
         # this to whatever is on the PATH.
         attr_accessor :vagrant_path
 
         def initialize
-          @env          = {}
-          @providers    = {}
-          @vagrant_path = "vagrant"
+          @env            = {}
+          @providers      = {}
+          @skeleton_paths = []
+          @vagrant_path   = "vagrant"
         end
 
         # Tells vagrant-spec to acceptance test a certain provider.

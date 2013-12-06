@@ -12,13 +12,16 @@ module Vagrant
     # This class extends the normal IsolatedEnvironment to add some
     # additional helpers for executing applications within that environment.
     class AcceptanceIsolatedEnvironment < IsolatedEnvironment
-      def initialize(apps: nil, env: nil)
+      def initialize(apps: nil, env: nil, skeleton_paths: nil)
         super()
 
         @logger = Log4r::Logger.new("test::acceptance::isolated_environment")
 
         @apps = (apps || {}).dup
         @env  = (env || {}).dup
+        @skeleton_paths = (skeleton_paths || []).map do |path|
+          Pathname.new(path)
+        end
 
         # Set the home directory for any apps we execute
         @env["HOME"] = @homedir.to_s
@@ -49,6 +52,24 @@ module Vagrant
         Subprocess.execute(command, *args, **options) do |type, data|
           @logger.debug("#{type}: #{data}") if type == :stdout || type == :stderr
           yield type, data if block_given?
+        end
+      end
+
+      # Copies the skeleton directory into the working directory.
+      #
+      # @param [String] name Name of the skeleton to copy.
+      def skeleton(name)
+        path = @skeleton_paths.find do |p|
+          p.join(name).directory?
+        end
+
+        if !path
+          raise ArgumentError,
+            "Skeleton '#{name}' not found in any directory."
+        end
+
+        path.join(name).children.each do |c|
+          FileUtils.cp_r(c, @workdir.to_s)
         end
       end
 

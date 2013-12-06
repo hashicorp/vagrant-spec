@@ -1,0 +1,6 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "basic"
+
+  # Test that disabled works
+  config.vm.synced_folder ".", "/foo", disabled: true
+end
