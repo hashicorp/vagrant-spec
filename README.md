@@ -184,3 +184,41 @@ provider/virtualbox/foo
 ```
 
 And you can now run the tests!
+
+### Helpers
+
+#### Context: "acceptance" 
+
+The "acceptance" context defines many helpers for executing
+Vagrant within an isolated environment and setting up that
+environment. [See the context source file for detailed docs](https://github.com/mitchellh/vagrant-spec/blob/master/lib/vagrant-spec/acceptance/rspec/context.rb).
+
+The key features of the context are:
+
+* `execute` is a method for executing commands within the 
+  isolated environment. The isolated environment prepares a
+  empty working directory as well as changes the home directory
+  from the point-of-view of executing processes.
+
+* `environment` is the actual instance of the "IsolatedEnvironment"
+  class. It most importantly allows for skeletons to be used to
+  create complex directory setups. [See the IsolatedEnvironment source for more docs.](https://github.com/mitchellh/vagrant-spec/blob/master/lib/vagrant-spec/acceptance/isolated_environment.rb)
+
+#### Matcher: "exit_with"
+
+This matcher can be used to test that a command executed with
+`execute` exited with a good exit status. If it didn't, this matcher
+will produce helpful output containing the stdout/stderr of the
+command:
+
+```ruby
+result = execute("vagrant", "up")
+expect(result).to exit_with(0)
+```
+
+Although, a shortcut for this pattern is `assert_execute`:
+
+```ruby
+assert_execute("vagrant", "up")
+````
+
