@@ -1,5 +1,6 @@
 shared_examples "provider/provisioner/puppet" do |provider, options|
-  if !options[:box]
+  box = options[:box_puppet] || options[:box]
+  if !box
     raise ArgumentError,
       "box_basic option must be specified for provider: #{provider}"
   end
@@ -8,7 +9,7 @@ shared_examples "provider/provisioner/puppet" do |provider, options|
 
   before do
     environment.skeleton("provisioner_puppet")
-    assert_execute("vagrant", "box", "add", "box", options[:box])
+    assert_execute("vagrant", "box", "add", "box", box)
     assert_execute("vagrant", "up", "--provider=#{provider}")
   end
 
