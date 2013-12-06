@@ -1,0 +1,10 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  config.vm.provision "puppet"
+
+  config.vm.provision "puppet" do |p|
+    p.module_path = "basic-modules/modules"
+    p.manifests_path = "basic-modules/manifests"
+  end
+end
