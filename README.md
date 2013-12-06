@@ -14,6 +14,16 @@ you both unit test and acceptance test Vagrant components. The RSpec
 components are built on top of the helper methods so that the test library
 can be used with your test framework of choice.
 
+**Table of Contents** 
+
+- [Running Acceptance Tests](#running-acceptance-tests)
+	- [Configuration](#configuration)
+	- [Running](#running)
+- [Writing Acceptance Tests](#writing-acceptance-tests)
+	- [Configuring Component Paths](#configuring-component-paths)
+	- [Standalone Components](#standalone-components)
+	- [Provider Parameterized Components](#provider-parameterized-components)
+
 ## Running Acceptance Tests
 
 This section documents how acceptance tests can be configured, run, and
