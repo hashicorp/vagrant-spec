@@ -40,8 +40,8 @@ shared_context "acceptance" do
   # Executes the given command in the context of the isolated environment.
   #
   # @return [Object]
-  def execute(*args, &block)
-    status("Execute: #{args.join(" ")}")
+  def execute(*args, log: true, &block)
+    status("Execute: #{args.join(" ")}") if log
     environment.execute(*args, &block)
   end
 

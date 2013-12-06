@@ -24,7 +24,7 @@ shared_examples "provider/synced_folder" do |provider, options|
     ensure
       # Just do a destroy to be safe, but don't worry about the output
       # and don't log it.
-      execute("vagrant", "destroy", "--force")
+      execute("vagrant", "destroy", "--force", log: false)
     end
   end
 
