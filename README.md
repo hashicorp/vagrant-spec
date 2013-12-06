@@ -28,6 +28,48 @@ geared very heavily towards RSpec.
 		- [Context: "acceptance"](#context-acceptance)
 		- [Matcher: "exit_with"](#matcher-exit_with)
 
+## Installation
+
+### Standalone
+
+`vagrant-spec` can be installed as a standalone tool to black-box test
+existing Vagrant installations (potentially with a combination of plugins).
+**Vagrant plugin developers** should see the next section 
+"Plugin Development Environment" to see the proper way to test plugins
+in development.
+
+To install `vagrant-spec` as a standalone tool, simply gem install it:
+
+```
+$ gem install vagrant-spec
+```
+
+### Plugin Development Environment
+
+If you're developing a Vagrant plugin and wish to use `vagrant-spec`
+to help test that plugin, then you should add `vagrant-spec` as a
+development dependency to your plugin by modifying the gemspec.
+
+The version of `vagrant-spec` follows the version of Vagrant.
+So if you're writing your plugin to target Vagrant 1.4, then you
+should constrain the plugin to that version:
+
+```
+spec.add_development_dependency "vagrant-spec", "~> 1.4.0"
+```
+
+If you want to use the latest (from git) of `vagrant-spec`, you
+should add the git dependency to your `Gemfile`:
+
+```
+gem 'vagrant-spec', git: "https://github.com/mitchellh/vagrant-spec.git"
+```
+
+`vagrant-spec` can then be executed by being prefixed with
+`bundle exec`. Since your Gemfile should also contain "vagrant",
+vagrant-spec can then execute Vagrant in the context of the bundler
+environment in order to test your plugin.
+
 ## Running Acceptance Tests
 
 This section documents how acceptance tests can be configured, run, and
