@@ -9,7 +9,7 @@ module Vagrant
   module Spec
     # This is the CLI that implements the "vagrant-spec" command.
     class CLI < Thor
-      option :config, type: :string, desc: "path to config file to load"
+      option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
       desc "components", "output the components that can be tested"
       def components
         if options[:config]
@@ -23,7 +23,7 @@ module Vagrant
       end
 
       option :components, type: :array, desc: "components to test. defaults to all"
-      option :config, type: :string, desc: "path to config file to load"
+      option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
       desc "test", "runs the specs"
       def test
         if options[:config]
