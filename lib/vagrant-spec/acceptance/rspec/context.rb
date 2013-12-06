@@ -50,10 +50,7 @@ shared_context "acceptance" do
   # exit status was successful.
   def assert_execute(*args, &block)
     result = execute(*args, &block)
-    expect(result.exit_code).to(eql(0),
-      "expected '#{args.join(" ")}' to succeed\n\n" +
-      "stdout: #{result.stdout}\n\n" +
-      "stderr: #{result.stderr}")
+    expect(result).to exit_with(0)
     result
   end
 
