@@ -1,3 +1,5 @@
+require "net/http"
+
 require "vagrant-spec/acceptance/isolated_environment"
 
 shared_context "acceptance" do
@@ -52,6 +54,36 @@ shared_context "acceptance" do
     result = execute(*args, &block)
     expect(result).to exit_with(0)
     result
+  end
+
+  # Tests that the host can access the VM through the network.
+  #
+  # @param [String] url URL to request from the host.
+  # @param [Integer] guest_port Port to run a web server on the guest.
+  def assert_network(url, guest_port)
+    # Start up a web server in another thread by SSHing into the VM.
+    thr = Thread.new do
+      assert_execute("vagrant", "ssh", "-c", "python -m SimpleHTTPServer #{guest_port}")
+    end
+
+    # Verify that port forwarding works by making a simple HTTP request
+    # to the port. We should get a 200 response. We retry this a few times
+    # as we wait for the HTTP server to come online.
+    tries = 0
+    begin
+      result = Net::HTTP.get_response(URI.parse(url))
+      expect(result.code).to eql("200")
+    rescue
+      if tries < 5
+        tries += 1
+        sleep 2
+        retry
+      end
+
+      raise
+    end
+  ensure
+    thr.kill if thr
   end
 
   def status(message)
