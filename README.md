@@ -17,6 +17,9 @@ geared very heavily towards RSpec.
 
 **Table of Contents**
 
+- [Installation](#installation)
+	- [Standalone](#standalone)
+	- [Plugin Development Environment](#plugin-development-environment)
 - [Running Acceptance Tests](#running-acceptance-tests)
 	- [Configuration](#configuration)
 	- [Running](#running)
