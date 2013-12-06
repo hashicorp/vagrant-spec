@@ -10,6 +10,7 @@ module Vagrant
         def initialize(paths: nil)
           @world = RSpec::Core::World.new
           @components = Components.new(@world, paths || [])
+          prepare_components!
         end
 
         def components
@@ -17,61 +18,62 @@ module Vagrant
         end
 
         def run(components)
+          components = Set.new(components || [])
+
           args = [
             "--color",
             "--format", "Vagrant::Spec::Acceptance::Formatter",
           ]
 
-          with_world(components) do
+          with_world do
+            # Filter out the components
+            if !components.empty?
+              bad = []
+              @world.example_groups.each do |g|
+                next if !g.metadata.has_key?(:component)
+                bad << g if !components.include?(g.metadata[:component])
+              end
+
+              bad.each do |b|
+                puts "Skipping: #{b.metadata[:component]}"
+                @world.example_groups.delete(b)
+              end
+            end
+
             RSpec::Core::Runner.run(args)
           end
         end
 
         protected
 
-        def with_world(components=nil)
-          components = Set.new(components || [])
+        def prepare_components!
+          with_world do
+            @components.reload!
 
+            # Define the provider example group
+            Acceptance.config.providers.each do |name, opts|
+              @components.provider_features.each do |feature|
+                component = "provider/#{name}/#{feature}"
+
+                g = RSpec::Core::ExampleGroup.describe(
+                  component, component: component)
+
+                # Include any extra contexts defined
+                (opts[:contexts] || []).each do |context|
+                  g.include_context(context)
+                end
+
+                g.it_should_behave_like("provider/#{feature}", name, opts)
+                g.register
+              end
+            end
+          end
+        end
+
+        def with_world
           # Set the world
           old_world = RSpec.world
           RSpec.world = @world
-
-          # Load the components
-          @components.reload!
-
-          # Define the provider example group
-          Acceptance.config.providers.each do |name, opts|
-            features = ["basic", "synced_folder"]
-
-            features.each do |feature|
-              component = "provider/#{name}/#{feature}"
-
-              g = RSpec::Core::ExampleGroup.describe(
-                component, component: component)
-
-              # Include any extra contexts defined
-              (opts[:contexts] || []).each do |context|
-                g.include_context(context)
-              end
-
-              g.it_should_behave_like("provider/#{feature}", name, opts)
-              g.register
-            end
-          end
-
-          # Filter out the components
-          if !components.empty?
-            bad = []
-            @world.example_groups.each do |g|
-              next if !g.metadata.has_key?(:component)
-              bad << g if !components.include?(g.metadata[:component])
-            end
-
-            bad.each do |b|
-              puts "Skipping: #{b.metadata[:component]}"
-              @world.example_groups.delete(b)
-            end
-          end
 
           yield
         ensure
