@@ -1,15 +1,15 @@
 # This tests that synced folders work with a given provider.
 shared_examples "provider/synced_folder" do |provider, options|
-  if !options[:box_basic]
+  if !options[:box]
     raise ArgumentError,
-      "box_basic option must be specified for provider: #{provider}"
+      "box option must be specified for provider: #{provider}"
   end
 
   include_context "acceptance"
 
   before do
     environment.skeleton("synced_folders")
-    assert_execute("vagrant", "box", "add", "basic", options[:box_basic])
+    assert_execute("vagrant", "box", "add", "basic", options[:box])
     assert_execute("vagrant", "up", "--provider=#{provider}")
   end
 
