@@ -1,4 +1,10 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "box"
+
   config.vm.provision "shell", inline: "echo foo > /foo"
+  config.vm.provision "shell", path: "path.sh"
+  config.vm.provision "shell", path: "args.sh", args: ["hello", "two words"]
+
+  config.vm.provision "shell", path: "user_root.sh"
+  config.vm.provision "shell", path: "user.sh", privileged: false
 end
