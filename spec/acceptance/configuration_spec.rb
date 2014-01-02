@@ -11,7 +11,15 @@ describe Vagrant::Spec::Acceptance::Configuration do
 
       p = subject.providers
       expect(p.length).to eql(1)
-      expect(p["foo"]).to eql(option: :bar)
+      expect(p["foo"][:option]).to eql(:bar)
+    end
+
+    it "adds a features array to providers by default" do
+      subject.provider "foo"
+
+      p = subject.providers
+      expect(p.length).to eql(1)
+      expect(p["foo"]).to eql(features: [])
     end
   end
 end
