@@ -17,6 +17,7 @@ geared very heavily towards RSpec.
 
 **Table of Contents**
 
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 	- [Standalone](#standalone)
 	- [Plugin Development Environment](#plugin-development-environment)
@@ -31,6 +32,10 @@ geared very heavily towards RSpec.
 		- [Context: "acceptance"](#context-acceptance)
 		- [Matcher: "exit_with"](#matcher-exit_with)
 
+## Prerequisites
+
+ * Ruby 2.0.0 or greater
+
 ## Installation
 
 ### Standalone
@@ -44,6 +49,7 @@ in development.
 To install `vagrant-spec` as a standalone tool, simply gem install it:
 
 ```
+$ gem build vagrant-spec.gemspec
 $ gem install vagrant-spec
 ```
 
@@ -120,7 +126,7 @@ provider/virtualbox/synced_folder
 Choose a component to run, and run it:
 
 ```
-$ vagrant-spec run --components cli
+$ vagrant-spec test --components cli
 ...
 ```
 
