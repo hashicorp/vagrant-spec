@@ -41,7 +41,25 @@ module Vagrant
         #
         # The order in which this is called has no effect on the order
         # that the tests will actually run in, at the moment.
+        #
+        # One of the keyword arguments accepted by this is "features" which
+        # can be a list of features supported by the provider. If the feature
+        # is prefixed with a "!" then that feature is _not_ supported. Currently
+        # valid options and their defaults:
+        #
+        #   * "halt" (default: supported) - `vagrant halt` and `vagrant up`
+        #     from halt work with this provider.
+        #   * "suspend" (default: supported) - `vagrant suspend` and
+        #     `vagrant resume` work with this provider.
+        #
+        # @option options [String] :box Path to a compatible "box" file
+        #   for this provider that can be used for tests.
+        # @option options [Array<String>] :features List of features that
+        #   are or are not supported by this provider. See the list above
+        #   for the feature list.
         def provider(name, **options)
+          options[:features] ||= []
+          options[:features].map(&:to_s)
           @providers[name.to_s] = options
         end
       end

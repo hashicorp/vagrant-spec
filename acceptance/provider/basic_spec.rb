@@ -58,25 +58,33 @@ TODO(mitchellh): These all exit with exit code 0. Unsure if bug.
       status("Test: machine is running after up")
       assert_running
 
-      status("Test: suspend")
-      assert_execute("vagrant", "suspend")
+      if !options[:features].include?("!suspend")
+        status("Test: suspend")
+        assert_execute("vagrant", "suspend")
 
-      status("Test: ssh doesn't work during suspended state")
-      assert_not_running
+        status("Test: ssh doesn't work during suspended state")
+        assert_not_running
 
-      status("Test: resume after suspend")
-      assert_execute("vagrant", "resume")
-      assert_running
+        status("Test: resume after suspend")
+        assert_execute("vagrant", "resume")
+        assert_running
+      else
+        status("Not testing 'suspend', provider doesn't support it")
+      end
 
-      status("Test: halt")
-      assert_execute("vagrant", "halt")
+      if !options[:features].include?("!halt")
+        status("Test: halt")
+        assert_execute("vagrant", "halt")
 
-      status("Test: ssh doesn't work during halted state")
-      assert_not_running
+        status("Test: ssh doesn't work during halted state")
+        assert_not_running
 
-      status("Test: up after halt")
-      assert_execute("vagrant", "up")
-      assert_running
+        status("Test: up after halt")
+        assert_execute("vagrant", "up")
+        assert_running
+      else
+        status("Not testing 'halt', provider doesn't support it")
+      end
     end
   end
 end
