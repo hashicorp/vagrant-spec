@@ -41,6 +41,30 @@ describe "vagrant CLI: plugin", component: "cli/plugin" do
   end
 
   describe "plugin install" do
+    it "can install multiple plugins" do
+      status("Test: plugin installation")
+      paths = [
+        Vagrant::Spec.acceptance_plugin_path.
+          join("vagrant-spec-helper-basic-0.1.0.gem").to_s,
+        Vagrant::Spec.acceptance_plugin_path.
+          join("vagrant-spec-helper-basic-rename-0.1.0.gem").to_s,
+      ]
+      result = execute("vagrant", "plugin", "install", *paths)
+      expect(result).to exit_with(0)
+      expect(result.stdout).to match_output(
+        :plugin_installed, "vagrant-spec-helper-basic", "0.1.0")
+      expect(result.stdout).to match_output(
+        :plugin_installed, "vagrant-spec-helper-basic-rename", "0.1.0")
+
+      status("Test: plugin shows up in list")
+      result = execute("vagrant", "plugin", "list")
+      expect(result).to exit_with(0)
+      expect(result.stdout).to match_output(
+        :plugin_list_plugin, "vagrant-spec-helper-basic", "0.1.0")
+      expect(result.stdout).to match_output(
+        :plugin_list_plugin, "vagrant-spec-helper-basic-rename", "0.1.0")
+    end
+
     it "fails with a plugin that doesn't exist" do
       name = "vagrant-spec-nope-#{Time.now.to_i}"
       result = execute("vagrant", "plugin", "install", name)
