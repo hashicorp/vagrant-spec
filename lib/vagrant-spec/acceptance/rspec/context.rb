@@ -16,7 +16,7 @@ shared_context "acceptance" do
 
   # The skeleton paths that will be used to configure environments.
   let(:skeleton_paths) do
-    root = Vagrant::Spec.source_root.join("acceptance", "skeletons")
+    root = Vagrant::Spec.source_root.join("acceptance", "support-skeletons")
     config.skeleton_paths.dup.unshift(root)
   end
 
