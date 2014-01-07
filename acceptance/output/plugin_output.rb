@@ -14,7 +14,7 @@ module Vagrant
 
     # Tests that Vagrant plugin install fails to a plugin not found
     OutputTester[:plugin_install_not_found] = lambda do |text, name|
-      text =~ /^The plugin '#{name}' could not be found/
+      text =~ /^The plugin '#{name}' could not be/
     end
 
     # Tests that Vagrant plugin install fails to a plugin not found
