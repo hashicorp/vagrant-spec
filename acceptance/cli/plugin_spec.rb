@@ -1,3 +1,5 @@
+require "tempfile"
+
 require "vagrant-spec"
 
 describe "vagrant CLI: plugin", component: "cli/plugin" do
@@ -77,6 +79,39 @@ describe "vagrant CLI: plugin", component: "cli/plugin" do
       expect(result).to exit_with(0)
       expect(result.stdout).to match_output(
         :plugin_list_plugin, name, "0.2.0")
+    end
+  end
+
+  describe "plugin license" do
+    let(:name) { "vagrant-spec-helper-basic" }
+    let(:tempfile) { Tempfile.new("vagrant-spec") }
+
+    before do
+      path = Vagrant::Spec.acceptance_plugin_path.join("vagrant-spec-helper-basic-0.1.0.gem")
+      result = execute("vagrant", "plugin", "install", path.to_s)
+      expect(result).to exit_with(0)
+
+      tempfile.puts("HELLO")
+      tempfile.close
+    end
+
+    it "fails with a license file that doesn't exist" do
+      result = execute("vagrant", "plugin", "license", name, "/i/should/not/exist")
+      expect(result).to exit_with(1)
+    end
+
+    it "fails with a plugin that isn't installed" do
+      result = execute("vagrant", "plugin", "license", "i-am-not-installed", tempfile.path)
+      expect(result).to exit_with(1)
+    end
+
+    it "succeeds with a valid gem and license" do
+      result = execute("vagrant", "plugin", "license", name, tempfile.path)
+      expect(result).to exit_with(0)
+
+      f = environment.homedir.join(".vagrant.d", "license-#{name}.lic")
+      expect(f).to be_file
+      expect(f.read).to eql("HELLO\n")
     end
   end
 end
