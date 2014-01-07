@@ -1,6 +1,4 @@
 .DS_Store
-*.gem
-*.rbc
 .bundle
 .config
 .yardoc
@@ -17,3 +15,4 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+vagrant-spec.config.rb
