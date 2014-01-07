@@ -25,6 +25,11 @@ describe "vagrant CLI: plugin", component: "cli/plugin" do
     expect(result.stdout).to match_output(
       :plugin_list_plugin, "vagrant-spec-helper-basic", "0.1.0")
 
+    status("Test: plugin should load")
+    result = execute("vagrant", "vshb")
+    expect(result).to exit_with(0)
+    expect(result.stdout).to match(/I HAVE BEEN EXECUTED/)
+
     status("Test: plugin can be uninstalled")
     result = execute("vagrant", "plugin", "uninstall", "vagrant-spec-helper-basic")
     expect(result).to exit_with(0)
