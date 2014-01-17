@@ -1,0 +1,6 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  config.vm.synced_folder ".", "/vagrant-rsync", type: "rsync"
+  config.vm.synced_folder ".", "/foo", type: "rsync", disabled: true
+end
