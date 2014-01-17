@@ -6,6 +6,7 @@ require "childprocess"
 
 require "vagrant-spec/isolated_environment"
 require "vagrant-spec/subprocess"
+require "vagrant-spec/which"
 
 module Vagrant
   module Spec
@@ -41,6 +42,7 @@ module Vagrant
       def execute(command, *args, **options)
         # Create the command
         command = replace_command(command)
+        command = Which.which(command)
 
         # Build up the options
         options[:env] = @env
