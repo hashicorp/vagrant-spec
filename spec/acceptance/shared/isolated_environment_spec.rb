@@ -7,6 +7,8 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
 
   describe "execute" do
     it "should execute the command and return the result" do
+      Vagrant::Spec::Which.stub(which: "vagrant")
+
       result = Object.new
       Vagrant::Spec::Subprocess.
         should_receive(:execute).with do |command, *args, **options|
@@ -21,6 +23,8 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
     end
 
     it "should replace app paths" do
+      Vagrant::Spec::Which.stub(which: "/bin/foo")
+
       subject = described_class.new(apps: {
         "vagrant" => "/bin/foo",
       })
