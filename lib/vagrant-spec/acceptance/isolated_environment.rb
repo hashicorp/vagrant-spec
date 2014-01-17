@@ -26,6 +26,7 @@ module Vagrant
 
         # Set the home directory for any apps we execute
         @env["HOME"] = @homedir.to_s
+        @env["VAGRANT_HOME"] = @homedir.to_s
 
         # Replace some special variables
         @env.each do |k, v|
