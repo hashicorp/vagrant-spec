@@ -30,7 +30,7 @@ shared_context "vagrant-unit" do
   # methods on it to easily create files, Vagrantfiles, boxes,
   # etc.
   def isolated_environment
-    Unit::IsolatedEnvironment.new.tap do |env|
+    UnitIsolatedEnvironment.new.tap do |env|
       yield env if block_given?
     end
   end
