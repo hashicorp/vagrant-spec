@@ -3,7 +3,7 @@ require "tmpdir"
 
 require "vagrant-spec/unit/isolated_environment"
 
-shared_context "unit" do
+shared_context "vagrant-unit" do
   before(:each) do
     # State to store the list of registered plugins that we have to
     # unregister later.
