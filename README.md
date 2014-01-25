@@ -42,7 +42,7 @@ geared very heavily towards RSpec.
 
 `vagrant-spec` can be installed as a standalone tool to black-box test
 existing Vagrant installations (potentially with a combination of plugins).
-**Vagrant plugin developers** should see the next section 
+**Vagrant plugin developers** should see the next section
 "Plugin Development Environment" to see the proper way to test plugins
 in development.
 
@@ -277,3 +277,16 @@ Although, a shortcut for this pattern is `assert_execute`:
 assert_execute("vagrant", "up")
 ````
 
+## Writing Unit Tests
+
+In addition to having a full acceptance test suite, `vagrant-spec` contains
+helpers that can be used to helper unit test plugins for Vagrant. These unit
+test helpers are test framework agnostic but there are also some helpers
+for rspec if you use that.
+
+To use the unit tests helpers, just load `vagrant-spec/unit` somewhere early
+in your test files:
+
+```ruby
+require "vagrant-spec/unit"
+```
