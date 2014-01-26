@@ -1,3 +1,5 @@
+require "vagrant"
+
 module Vagrant
   module Spec
     class DummyProviderPlugin < Vagrant.plugin("2")
