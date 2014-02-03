@@ -9,7 +9,7 @@ module Vagrant
 
     # Tests that box list has a certain box
     OutputTester[:box_list_added] = lambda do |text, name|
-      text =~ /^Successfully added box '#{name}'/
+      text =~ /Successfully added box '#{name}'/
     end
 
     # Tests that box list has no boxes.
