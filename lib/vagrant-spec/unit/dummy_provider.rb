@@ -14,7 +14,11 @@ module Vagrant
     end
 
     class DummyProvider < Vagrant.plugin("2", :provider)
-      # No-op
+      def action(name)
+        lambda do |env|
+          # Do nothing
+        end
+      end
     end
   end
 end
