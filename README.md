@@ -24,6 +24,7 @@ geared very heavily towards RSpec.
 - [Running Acceptance Tests](#running-acceptance-tests)
 	- [Configuration](#configuration)
 	- [Running](#running)
+	- [Provider's Acceptance Specs](#provider-s-acceptance-specs)
 - [Writing Acceptance Tests](#writing-acceptance-tests)
 	- [Configuring Component Paths](#configuring-component-paths)
 	- [Standalone Components](#standalone-components)
@@ -131,6 +132,28 @@ $ vagrant-spec test --components cli
 ```
 
 That component will be tested.
+
+### Provider's Acceptance Specs
+
+`vagrant-spec` ships with a handful of [provider acceptance tests](acceptance/provider) 
+used to test Vagrant's built in VirtualBox provider that you can reuse
+to test your custom plugins.
+
+All that it needs is the following block on your `vagrant-spec.config.rb`:
+
+```ruby
+Vagrant::Spec::Acceptance.configure do |c|
+  # ... other stuff ...
+  c.provider 'foobar', box: '<PATH TO A BOX>'
+end
+```
+
+With that in place, you should be able to run provider's components with
+`vagrant-spec test`. For the complete list, please run `vagrant-spec components`.
+
+_The code example might get outdated while we don't have a stable release,
+please refer to [Vagrant's configuration](https://github.com/mitchellh/vagrant/blob/master/vagrant-spec.config.example.rb)
+in case things are not working for you_
 
 ## Writing Acceptance Tests
 
