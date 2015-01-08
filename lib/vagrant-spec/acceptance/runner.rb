@@ -30,7 +30,7 @@ module Vagrant
             if !components.empty?
               bad = []
               @world.example_groups.each do |g|
-                next if !g.metadata.has_key?(:component)
+                next if !g.metadata.key?(:component)
                 bad << g if !components.include?(g.metadata[:component])
               end
 

@@ -82,7 +82,7 @@ module Vagrant
       # isolated environment was initialized. If nothing was defined,
       # then the command itself is returned.
       def replace_command(command)
-        return @apps[command] if @apps.has_key?(command)
+        return @apps[command] if @apps.key?(command)
         return command
       end
     end

@@ -22,11 +22,11 @@ describe Vagrant::Spec::OutputTester do
     end
 
     it "should match with good input" do
-      expect(described_class.matches?("foo", :test)).to be_true
+      expect(described_class.matches?("foo", :test)).to be(true)
     end
 
     it "should not match with bad output" do
-      expect(described_class.matches?("bar", :test)).to_not be_true
+      expect(described_class.matches?("bar", :test)).to_not be(true)
     end
   end
 
@@ -42,12 +42,12 @@ describe Vagrant::Spec::OutputTester do
     end
 
     it "should match with good input" do
-      expect(described_class.matches?("foo", :test, "foo")).to be_true
-      expect(described_class.matches?("bar", :test, "bar")).to be_true
+      expect(described_class.matches?("foo", :test, "foo")).to be(true)
+      expect(described_class.matches?("bar", :test, "bar")).to be(true)
     end
 
     it "should not match with bad output" do
-      expect(described_class.matches?("bar", :test, "foo")).to_not be_true
+      expect(described_class.matches?("bar", :test, "foo")).to_not be(true)
     end
   end
 end

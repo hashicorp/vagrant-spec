@@ -31,8 +31,8 @@ module Vagrant
       def components
         [].tap do |result|
           with_world do
-            RSpec.world.example_groups.each do |group|
-              next if !group.metadata.has_key?(:component)
+            @world.example_groups.each do |group|
+              next if !group.metadata.key?(:component)
               result << group.metadata[:component]
             end
           end
@@ -42,8 +42,8 @@ module Vagrant
       # Returns the defined provider features.
       def provider_features
         [].tap do |result|
-          groups = RSpec::Core::SharedExampleGroup.registry.shared_example_groups
-          groups["main"].each do |name, _|
+          groups = @world.shared_example_group_registry.send(:shared_example_groups)
+          groups[:main].each do |name, _|
             match = /^provider\/(.+?)$/.match(name)
             result << match[1] if match
           end
@@ -54,10 +54,10 @@ module Vagrant
 
       def with_world
         old_world = RSpec.world
-        RSpec.world = @world
+        RSpec.instance_variable_set(:@world, @world)
         yield
       ensure
-        RSpec.world = old_world
+        RSpec.instance_variable_set(:@world, old_world)
       end
 
       # This loads the default components that are packaged with
