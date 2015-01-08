@@ -32,7 +32,7 @@ module Vagrant
         [].tap do |result|
           with_world do
             RSpec.world.example_groups.each do |group|
-              next if !group.metadata.has_key?(:component)
+              next if !group.metadata.key?(:component)
               result << group.metadata[:component]
             end
           end

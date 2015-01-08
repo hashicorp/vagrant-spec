@@ -7,15 +7,15 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
 
   describe "execute" do
     it "should execute the command and return the result" do
-      Vagrant::Spec::Which.stub(which: "vagrant")
+      allow(Vagrant::Spec::Which).to receive(:which)
+        .and_return("vagrant")
 
       result = Object.new
-      Vagrant::Spec::Subprocess.
-        should_receive(:execute).with do |command, *args, **options|
+      allow(Vagrant::Spec::Subprocess).to receive(:execute) do |command, *args, **options|
         expect(command).to eql("vagrant")
         expect(args).to eql(["up"])
 
-        expect(options[:env].has_key?("HOME")).to be_true
+        expect(options[:env].key?("HOME")).to be(true)
         expect(options[:workdir]).to eql(subject.workdir.to_s)
       end.and_return(result)
 
@@ -23,19 +23,19 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
     end
 
     it "should replace app paths" do
-      Vagrant::Spec::Which.stub(which: "/bin/foo")
+      allow(Vagrant::Spec::Which).to receive(:which)
+        .and_return("/bin/foo")
 
       subject = described_class.new(apps: {
         "vagrant" => "/bin/foo",
       })
 
       result = Object.new
-      Vagrant::Spec::Subprocess.
-        should_receive(:execute).with do |command, *args, **options|
+      allow(Vagrant::Spec::Subprocess).to receive(:execute) do |command, *args, **options|
         expect(command).to eql("/bin/foo")
         expect(args).to eql(["up"])
 
-        expect(options[:env].has_key?("HOME")).to be_true
+        expect(options[:env].key?("HOME")).to be(true)
         expect(options[:workdir]).to eql(subject.workdir.to_s)
       end.and_return(result)
 
