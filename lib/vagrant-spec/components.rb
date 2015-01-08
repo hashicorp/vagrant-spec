@@ -42,8 +42,8 @@ module Vagrant
       # Returns the defined provider features.
       def provider_features
         [].tap do |result|
-          groups["main"].each do |name, _|
           groups = @world.shared_example_group_registry.send(:shared_example_groups)
+          groups[:main].each do |name, _|
             match = /^provider\/(.+?)$/.match(name)
             result << match[1] if match
           end
