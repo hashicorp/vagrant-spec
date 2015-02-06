@@ -9,6 +9,7 @@ module Vagrant
       class Runner
         def initialize(paths: nil)
           @world = RSpec::Core::World.new
+          prepare_world!
           @components = Components.new(@world, paths || [])
           prepare_components!
         end
@@ -46,6 +47,12 @@ module Vagrant
 
         protected
 
+        def prepare_world!
+          with_world do
+            require_relative "../acceptance/rspec"
+          end
+        end
+
         def prepare_components!
           with_world do
             # Define the provider example group
@@ -62,7 +69,7 @@ module Vagrant
                 end
 
                 g.it_should_behave_like("provider/#{feature}", name, opts)
-                g.register
+                RSpec.world.register(g)
               end
             end
           end

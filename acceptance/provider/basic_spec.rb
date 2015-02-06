@@ -1,6 +1,6 @@
 # This tests the basic functionality of a provider: that it can run
 # a machine, provide SSH access, and destroy that machine.
-shared_examples "provider/basic" do |provider, options|
+RSpec.shared_examples "provider/basic" do |provider, options|
   if !options[:box]
     raise ArgumentError,
       "box option must be specified for provider: #{provider}"

@@ -42,10 +42,12 @@ module Vagrant
       # Returns the defined provider features.
       def provider_features
         [].tap do |result|
-          groups = RSpec::Core::SharedExampleGroup.registry.shared_example_groups
-          groups["main"].each do |name, _|
-            match = /^provider\/(.+?)$/.match(name)
-            result << match[1] if match
+          with_world do
+            groups = RSpec.world.shared_example_group_registry.send(:shared_example_groups)
+            groups[:main].each do |name, _|
+              match = /^provider\/(.+?)$/.match(name)
+              result << match[1] if match
+            end
           end
         end
       end
