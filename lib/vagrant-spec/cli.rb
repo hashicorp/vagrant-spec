@@ -31,7 +31,7 @@ module Vagrant
         end
 
         Acceptance::Runner.new(paths: Acceptance.config.component_paths).
-          run(options[:components])
+          run(options[:components], Acceptance.config.rspec_args)
       end
     end
   end

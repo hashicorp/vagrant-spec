@@ -17,10 +17,10 @@ module Vagrant
           @components.components
         end
 
-        def run(components)
+        def run(components, rspec_args=nil)
           components = Set.new(components || [])
 
-          args = [
+          args = rspec_args || [
             "--color",
             "--format", "Vagrant::Spec::Acceptance::Formatter",
           ]
