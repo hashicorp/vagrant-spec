@@ -6,6 +6,10 @@ describe Vagrant::Spec::Acceptance::Configuration do
       expect(subject.providers).to be_empty
     end
 
+    it "has no rspec_args_append initially" do
+      expect(subject.rspec_args_append).to be_empty
+    end
+
     it "can add providers" do
       subject.provider "foo", option: :bar
 

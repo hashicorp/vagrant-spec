@@ -26,15 +26,20 @@ module Vagrant
         # this to whatever is on the PATH.
         attr_accessor :vagrant_path
 
+        # Array of arguments to append to those passed to the rspec runner,
+        # i.e. for adding additional formatters.
+        attr_accessor :rspec_args_append
+
         def initialize
           @component_paths = [
             Vagrant::Spec.source_root.join("acceptance"),
           ]
 
-          @env            = {}
-          @providers      = {}
-          @skeleton_paths = []
-          @vagrant_path   = "vagrant"
+          @env               = {}
+          @providers         = {}
+          @skeleton_paths    = []
+          @vagrant_path      = "vagrant"
+          @rspec_args_append = []
         end
 
         # Tells vagrant-spec to acceptance test a certain provider.
