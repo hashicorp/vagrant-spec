@@ -17,13 +17,13 @@ module Vagrant
           @components.components
         end
 
-        def run(components, rspec_args=nil)
+        def run(components, rspec_args_append=[])
           components = Set.new(components || [])
 
-          args = rspec_args || [
+          args = [
             "--color",
             "--format", "Vagrant::Spec::Acceptance::Formatter",
-          ]
+          ] + rspec_args_append
 
           with_world do
             # Filter out the components

@@ -26,22 +26,20 @@ module Vagrant
         # this to whatever is on the PATH.
         attr_accessor :vagrant_path
 
-        # Array of arguments to pass to the rspec runner, overriding the
-        # default. Useful for passing in things such as alternate
-        # formatters.
-        # Default: ["--color", "--format", "Vagrant::Spec::Acceptance::Formatter"]
-        attr_accessor :rspec_args
+        # Array of arguments to append to those passed to the rspec runner,
+        # i.e. for adding additional formatters.
+        attr_accessor :rspec_args_append
 
         def initialize
           @component_paths = [
             Vagrant::Spec.source_root.join("acceptance"),
           ]
 
-          @env            = {}
-          @providers      = {}
-          @skeleton_paths = []
-          @vagrant_path   = "vagrant"
-          @rspec_args     = []
+          @env               = {}
+          @providers         = {}
+          @skeleton_paths    = []
+          @vagrant_path      = "vagrant"
+          @rspec_args_append = []
         end
 
         # Tells vagrant-spec to acceptance test a certain provider.
