@@ -11,6 +11,11 @@ module Vagrant
         # paths.
         attr_accessor :component_paths
 
+        # Number of times which assertion should be repeated before raising
+        # an exception when it occurs. By default it is 5. It is recommended
+        # to increate this value if you run tests on the slow host machine.
+        attr_accessor :assert_retries
+
         # Additional environmental variables to set for environments.
         attr_reader :env
 
@@ -31,6 +36,7 @@ module Vagrant
             Vagrant::Spec.source_root.join("acceptance"),
           ]
 
+          @assert_retries = 5
           @env            = {}
           @providers      = {}
           @skeleton_paths = []
