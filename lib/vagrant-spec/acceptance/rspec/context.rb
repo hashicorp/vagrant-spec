@@ -74,7 +74,7 @@ shared_context "acceptance" do
       result = Net::HTTP.get_response(URI.parse(url))
       expect(result.code).to eql("200")
     rescue
-      if tries < 5
+      if tries < config.assert_retries
         tries += 1
         sleep 2
         retry
