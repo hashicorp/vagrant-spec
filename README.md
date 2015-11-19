@@ -135,7 +135,7 @@ That component will be tested.
 
 ### Provider's Acceptance Specs
 
-`vagrant-spec` ships with a handful of [provider acceptance tests](acceptance/provider) 
+`vagrant-spec` ships with a handful of [provider acceptance tests](acceptance/provider)
 used to test Vagrant's built in VirtualBox provider that you can reuse
 to test your custom plugins.
 
@@ -177,6 +177,10 @@ Vagrant::Spec::Acceptance.configure do |c|
   c.component_paths << "vagrant-spec"
 end
 ```
+
+Within the component paths, any files matching `*_{output,spec}.rb` within
+any directory are loaded. Components are found based on the "component"
+key as shown in the sections below.
 
 If the path is relative, it will be relative to the pwd when
 `vagrant-spec` is executed.
