@@ -13,23 +13,23 @@ describe Vagrant::Spec::UnitIsolatedEnvironment do
   end
 
   describe "#box" do
-    pending
+    skip
   end
 
   describe "#box2" do
-    pending
+    skip
   end
 
   describe "#box3" do
-    pending
+    skip
   end
 
   describe "#box1_file" do
-    pending
+    skip
   end
 
   describe "#box2_file" do
-    pending
+    skip
   end
 
   describe "#file" do

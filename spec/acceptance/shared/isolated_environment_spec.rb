@@ -10,12 +10,11 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
       Vagrant::Spec::Which.stub(which: "vagrant")
 
       result = Object.new
-      Vagrant::Spec::Subprocess.
-        should_receive(:execute).with do |command, *args, **options|
+      expect(Vagrant::Spec::Subprocess).to receive(:execute) do |command, *args, **options|
         expect(command).to eql("vagrant")
         expect(args).to eql(["up"])
 
-        expect(options[:env].has_key?("HOME")).to be_true
+        expect(options[:env].has_key?("HOME")).to be_truthy
         expect(options[:workdir]).to eql(subject.workdir.to_s)
       end.and_return(result)
 
@@ -30,12 +29,11 @@ describe Vagrant::Spec::AcceptanceIsolatedEnvironment do
       })
 
       result = Object.new
-      Vagrant::Spec::Subprocess.
-        should_receive(:execute).with do |command, *args, **options|
+      expect(Vagrant::Spec::Subprocess).to receive(:execute) do |command, *args, **options|
         expect(command).to eql("/bin/foo")
         expect(args).to eql(["up"])
 
-        expect(options[:env].has_key?("HOME")).to be_true
+        expect(options[:env].has_key?("HOME")).to be_truthy
         expect(options[:workdir]).to eql(subject.workdir.to_s)
       end.and_return(result)
 
