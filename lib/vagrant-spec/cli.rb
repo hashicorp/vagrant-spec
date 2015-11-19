@@ -12,9 +12,7 @@ module Vagrant
       option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
       desc "components", "output the components that can be tested"
       def components
-        if options[:config]
-          load options[:config]
-        end
+        load_config
 
         runner = Acceptance::Runner.new(paths: Acceptance.config.component_paths)
         runner.components.sort.each do |c|
@@ -26,12 +24,19 @@ module Vagrant
       option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
       desc "test", "runs the specs"
       def test
-        if options[:config]
-          load options[:config]
-        end
+        load_config
 
         Acceptance::Runner.new(paths: Acceptance.config.component_paths).
           run(options[:components])
+      end
+
+      protected
+
+      def load_config
+        load options[:config]
+      rescue LoadError
+        puts "Please create a vagrant-spec.config.rb file."
+        exit 1
       end
     end
   end
