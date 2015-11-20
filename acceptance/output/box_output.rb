@@ -2,6 +2,11 @@ require "vagrant-spec/acceptance/output"
 
 module Vagrant
   module Spec
+    # Tests that box add worked with details
+    OutputTester[:box_added_detailed] = lambda do |text, name, version, provider|
+      text =~ /Successfully added box '#{name}' \(v#{version}\) for '#{provider}'/
+    end
+
     # Tests that box add failed with a bad provider
     OutputTester[:box_add_wrong_provider] = lambda do |text|
       text =~ /doesn't match the provider/
