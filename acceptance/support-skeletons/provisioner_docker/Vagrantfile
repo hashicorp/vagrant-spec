@@ -1,8 +1,5 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "box"
 
-  config.vm.provision "docker" do |docker|
-    docker.run "ubuntu",
-      cmd: "echo hello world"
-  end
+  config.vm.provision "docker"
 end
