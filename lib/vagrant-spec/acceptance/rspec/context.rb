@@ -2,7 +2,7 @@ require "net/http"
 
 require "vagrant-spec/acceptance/isolated_environment"
 
-shared_context "acceptance" do
+RSpec.shared_context "acceptance" do
   # Setup the environment so that we have an isolated area
   # to run Vagrant. We do some configuration here as well in order
   # to replace "vagrant" with the proper path to Vagrant as well
