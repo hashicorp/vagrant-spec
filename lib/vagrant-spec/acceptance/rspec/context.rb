@@ -45,16 +45,17 @@ shared_context "acceptance" do
   # Executes the given command in the context of the isolated environment.
   #
   # @return [Object]
-  def execute(*args, log: true, &block)
+  def execute(*args, env: nil, log: true, &block)
+    env ||= environment
     status("Execute: #{args.join(" ")}") if log
-    environment.execute(*args, &block)
+    env.execute(*args, &block)
   end
 
   # This method is an assertion helper for asserting that a process
   # succeeds. It is a wrapper around `execute` that asserts that the
   # exit status was successful.
-  def assert_execute(*args, &block)
-    result = execute(*args, &block)
+  def assert_execute(*args, env: nil, &block)
+    result = execute(*args, env: env, &block)
     expect(result).to exit_with(0)
     result
   end
