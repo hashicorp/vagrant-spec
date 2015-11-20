@@ -22,12 +22,13 @@ module Vagrant
 
       option :components, type: :array, desc: "components to test. defaults to all"
       option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
+      option :example, type: :string, default: nil, desc: "specific example to run"
       desc "test", "runs the specs"
       def test
         load_config
 
         Acceptance::Runner.new(paths: Acceptance.config.component_paths).
-          run(options[:components])
+          run(options[:components], example: options[:example])
       end
 
       protected
