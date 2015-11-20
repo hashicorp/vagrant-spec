@@ -149,6 +149,18 @@ describe "vagrant CLI: box", component: "cli/box" do
       expect(result.stdout).to match_output(:box_outdated_current, box_name)
     end
 
+    # GH-4618
+    it "should have no outdated if we have the latest with multiple versions" do
+      # Add the older version too
+      url = "http://127.0.0.1:#{port}/#{md_path.basename}"
+      assert_execute("vagrant", "box", "add", "--box-version", "= 0.5", url)
+
+      # No outdated
+      result = execute("vagrant", "box", "outdated", "--global")
+      expect(result).to exit_with(0)
+      expect(result.stdout).to match_output(:box_outdated_current, box_name)
+    end
+
     it "should have outdated if there are some" do
       md_path.open("w") do |f|
         f.write(<<-RAW)

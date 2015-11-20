@@ -34,7 +34,8 @@ module Vagrant
 
     # Tests that box is up to date
     OutputTester[:box_outdated_current] = lambda do |text, name|
-      text =~ /'#{name}'.+is up to date/
+      (text !~ /'#{name}' is outdated/) &&
+        (text =~ /'#{name}'.+is up to date/)
     end
   end
 end
