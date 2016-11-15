@@ -18,3 +18,8 @@ module Vagrant
     end
   end
 end
+
+# Only load plugin interface if running within Vagrant context
+if defined?(VagrantPlugins)
+  require "vagrant-spec/vagrant-plugin/plugin"
+end
