@@ -39,25 +39,4 @@ end
     end
   end
 
-  describe "provider_features" do
-    it "has none by default" do
-      expect(subject.provider_features).to be_empty
-    end
-
-    it "loads features" do
-      random = "#{Time.now.to_i}-#{Random.rand(1000)}"
-      paths[0].join("shared_foo_spec.rb").open("w") do |f|
-        f.write(<<-CONTENT)
-shared_examples "#{random}" do
-end
-
-shared_examples "provider/#{random}-bar" do
-end
-        CONTENT
-      end
-
-      subject.reload!
-      expect(subject.provider_features).to eql(["#{random}-bar"])
-    end
-  end
 end

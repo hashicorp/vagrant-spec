@@ -39,17 +39,6 @@ module Vagrant
         end
       end
 
-      # Returns the defined provider features.
-      def provider_features
-        [].tap do |result|
-          groups = RSpec::Core::SharedExampleGroup.registry.shared_example_groups
-          groups["main"].each do |name, _|
-            match = /^provider\/(.+?)$/.match(name)
-            result << match[1] if match
-          end
-        end
-      end
-
       protected
 
       def with_world
