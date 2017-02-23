@@ -10,7 +10,19 @@ module VagrantPlugins
       def execute
         options = {}
         opts = OptionParser.new do |o|
-          o.banner = "Usage: vagrant vagrant-spec <config file path>"
+          o.banner = "Usage: vagrant vagrant-spec [options] <config file path>"
+          o.separator ""
+          o.separator "Options:"
+          o.separator ""
+
+          o.on("-c", "--component", "Specific component to test") do |c|
+            options[:components] ||= []
+            options[:components] << c
+          end
+
+          o.on("-e", "--example", "Specific example to test") do |e|
+            options[:example] = e
+          end
         end
 
         argv = parse_options(opts)
@@ -24,6 +36,7 @@ module VagrantPlugins
         require Vagrant.source_root.join("test/acceptance/base").to_s
 
         Vagrant::Spec::Acceptance.configure do |c|
+          c.run_mode = "plugin"
           c.component_paths << Vagrant.source_root.join("test/acceptance").to_s
           c.skeleton_paths << Vagrant.source_root.join("test/acceptance/skeletons").to_s
         end
@@ -33,7 +46,7 @@ module VagrantPlugins
           raise ArgumentError.new "Invalid configuration file path provided"
         end
 
-        cli = Vagrant::Spec::CLI.new([], config: config_path)
+        cli = Vagrant::Spec::CLI.new([], options.merge(config: config_path))
         cli.test
       end
     end

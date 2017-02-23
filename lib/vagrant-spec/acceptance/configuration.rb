@@ -31,6 +31,12 @@ module Vagrant
         # this to whatever is on the PATH.
         attr_accessor :vagrant_path
 
+        # The run mode of vagrant spec. By default this is "standalone" but
+        # can be set to "plugin" when being run from the builtin plugin
+        # command. Useful to tailor acceptance tests where behavior is
+        # different depending on mode.
+        attr_accessor :run_mode
+
         def initialize
           @component_paths = [
             Vagrant::Spec.source_root.join("acceptance"),
@@ -41,6 +47,7 @@ module Vagrant
           @providers      = {}
           @skeleton_paths = []
           @vagrant_path   = "vagrant"
+          @run_mode       = "standalone"
         end
 
         # Tells vagrant-spec to acceptance test a certain provider.

@@ -3,10 +3,10 @@ describe "vagrant CLI: init", component: "cli/init" do
 
   it "creates a Vagrantfile in the working directory" do
     vagrantfile = environment.workdir.join("Vagrantfile")
-    expect(vagrantfile.exist?).to_not be_true
+    expect(vagrantfile.exist?).to_not be(true)
 
     assert_execute("vagrant", "init")
-    expect(vagrantfile.exist?).to be_true
+    expect(vagrantfile.exist?).to be(true)
   end
 
   it "creates a Vagrantfile with the box set to the given argument" do
@@ -30,7 +30,7 @@ describe "vagrant CLI: init", component: "cli/init" do
     vagrantfile = environment.workdir.join("foo")
 
     assert_execute("vagrant", "init", "--output", "foo")
-    expect(vagrantfile.exist?).to be_true
+    expect(vagrantfile.exist?).to be(true)
     expect(vagrantfile.read).to match(/^Vagrant\.configure/)
   end
 
