@@ -15,35 +15,43 @@ module VagrantPlugins
           o.separator "Options:"
           o.separator ""
 
-          o.on("-c", "--component", "Specific component to test") do |c|
+          o.on("-b", "--[no-]builtin", "Use builtin test paths") do |b|
+            options[:builtin] = b
+          end
+
+          o.on("-c", "--component COMPONENT", "Specific component to test") do |c|
             options[:components] ||= []
             options[:components] << c
           end
 
-          o.on("-e", "--example", "Specific example to test") do |e|
+          o.on("-e", "--example EXAMPLE", "Specific example to test") do |e|
             options[:example] = e
           end
         end
 
         argv = parse_options(opts)
         return if !argv
-        if argv.empty? || argv.length > 1
+        config_path = argv.first
+        if argv.empty? || argv.length > 1 || !File.file?(config_path)
           raise Vagrant::Errors::CLIInvalidUsage,
             help: opts.help.chomp
         end
 
+        # Load the Vagrant Spec CLI to start configuration
         require "vagrant-spec/cli"
-        require Vagrant.source_root.join("test/acceptance/base").to_s
+
+        use_builtin = options.key?(:builtin) ? options.delete(:builtin) : true
+
+        if use_builtin
+          require Vagrant.source_root.join("test/acceptance/base").to_s
+        end
 
         Vagrant::Spec::Acceptance.configure do |c|
           c.run_mode = "plugin"
-          c.component_paths << Vagrant.source_root.join("test/acceptance").to_s
-          c.skeleton_paths << Vagrant.source_root.join("test/acceptance/skeletons").to_s
-        end
-
-        config_path = argv.first
-        if !File.file?(config_path)
-          raise ArgumentError.new "Invalid configuration file path provided"
+          if use_builtin
+            c.component_paths << Vagrant.source_root.join("test/acceptance").to_s
+            c.skeleton_paths << Vagrant.source_root.join("test/acceptance/skeletons").to_s
+          end
         end
 
         cli = Vagrant::Spec::CLI.new([], options.merge(config: config_path))
