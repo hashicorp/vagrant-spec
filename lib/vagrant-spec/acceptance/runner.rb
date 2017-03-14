@@ -32,7 +32,7 @@ module Vagrant
               bad = []
               @world.example_groups.each do |g|
                 next if !g.metadata.has_key?(:component)
-                bad << g if !components.include?(g.metadata[:component])
+                bad << g if components.none?{|pattern| File.fnmatch?(pattern, g.metadata[:component])}
               end
 
               bad.each do |b|
