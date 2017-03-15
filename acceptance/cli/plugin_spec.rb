@@ -148,7 +148,7 @@ describe "vagrant CLI: plugin", component: "cli/plugin" do
       result = execute("vagrant", "plugin", "license", name, tempfile.path)
       expect(result).to exit_with(0)
 
-      f = environment.homedir.join(".vagrant.d", "license-#{name}.lic")
+      f = environment.homedir.join("license-#{name}.lic")
       expect(f).to be_file
       expect(f.read).to eql("HELLO\n")
     end

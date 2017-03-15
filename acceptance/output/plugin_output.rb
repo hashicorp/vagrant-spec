@@ -31,7 +31,7 @@ module Vagrant
 
     # Tests that Vagrant plugin install fails to a plugin not found
     OutputTester[:plugin_install_not_found] = lambda do |text, name|
-      text =~ /^Unable to resolve dependency .* '#{name}/
+      text =~ /Unable to resolve dependency:.* '#{name}/
     end
 
     # Tests that Vagrant plugin install fails to a plugin not found

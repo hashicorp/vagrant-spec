@@ -21,6 +21,7 @@ module Vagrant
       end
 
       option :components, type: :array, desc: "components to test. defaults to all"
+      option :without_components, type: :array, desc: "components to not test"
       option :config, type: :string, default: "vagrant-spec.config.rb", desc: "path to config file to load"
       option :example, type: :string, default: nil, desc: "specific example to run"
       desc "test", "runs the specs"
@@ -28,7 +29,7 @@ module Vagrant
         load_config
 
         Acceptance::Runner.new(paths: Acceptance.config.component_paths).
-          run(options[:components], example: options[:example])
+          run(options[:components], example: options[:example], without_components: options[:without_components])
       end
 
       protected
