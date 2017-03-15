@@ -24,6 +24,11 @@ module VagrantPlugins
             options[:components] << c
           end
 
+          o.on("-w", "--without-component COMPONENT", "Specific component to not test") do |c|
+            options[:without_components] ||= []
+            options[:without_components] << c
+          end
+
           o.on("-e", "--example EXAMPLE", "Specific example to test") do |e|
             options[:example] = e
           end

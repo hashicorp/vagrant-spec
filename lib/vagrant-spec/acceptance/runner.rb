@@ -19,6 +19,7 @@ module Vagrant
 
         def run(components, **opts)
           components = Set.new(components || [])
+          without_components = Set.new(opts[:without_components] || [])
 
           args = [
             "--color",
@@ -28,11 +29,17 @@ module Vagrant
 
           with_world do
             # Filter out the components
-            if !components.empty?
+            if !components.empty? || !without_components.empty?
               bad = []
               @world.example_groups.each do |g|
                 next if !g.metadata.has_key?(:component)
-                bad << g if components.none?{|pattern| File.fnmatch?(pattern, g.metadata[:component])}
+                if !components.empty? && components.none?{|pattern| File.fnmatch?(pattern, g.metadata[:component])}
+                  bad << g
+                else
+                  if without_components.any?{|pattern| File.fnmatch?(pattern, g.metadata[:component])}
+                    bad << g
+                  end
+                end
               end
 
               bad.each do |b|
