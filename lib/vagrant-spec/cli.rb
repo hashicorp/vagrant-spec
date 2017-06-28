@@ -36,8 +36,11 @@ module Vagrant
 
       def load_config
         load options[:config]
-      rescue LoadError
-        puts "Please create a vagrant-spec.config.rb file."
+      rescue LoadError => e
+        $stderr.puts "Please create a vagrant-spec.config.rb file."
+        if ENV.fetch("DEBUG", "0").to_s != "0"
+          $stderr.puts "#{e.class}: #{e}\n#{e.backtrace.join("\n")}"
+        end
         exit 1
       end
     end
