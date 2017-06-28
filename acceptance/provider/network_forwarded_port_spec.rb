@@ -6,6 +6,8 @@ shared_examples "provider/network/forwarded_port" do |provider, options|
 
   include_context "acceptance"
 
+  let(:port){ (rand * 1000).floor + 9000 }
+
   before do
     environment.skeleton("network_forwarded_port")
     assert_execute("vagrant", "box", "add", "box", options[:box])
@@ -18,6 +20,6 @@ shared_examples "provider/network/forwarded_port" do |provider, options|
 
   it "properly configures forwarded ports" do
     status("Test: TCP forwarded port (default)")
-    assert_network("http://localhost:8080/", 8080)
+    assert_network("http://localhost:#{port}/", port)
   end
 end
