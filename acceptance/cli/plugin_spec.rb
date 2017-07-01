@@ -153,4 +153,12 @@ describe "vagrant CLI: plugin", component: "cli/plugin" do
       expect(f.read).to eql("HELLO\n")
     end
   end
+
+  describe "plugin extensions" do
+    it "should install nokogiri" do
+      result = execute("vagrant", "plugin", "install", "nokogiri")
+      expect(result).to exit_with(0)
+      expect(result.stdout).to match_output(:plugin_installed, "nokogiri", nil)
+    end
+  end
 end
