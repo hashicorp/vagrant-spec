@@ -5,10 +5,9 @@ require "tmpdir"
 require "vagrant-spec/components"
 
 describe Vagrant::Spec::Components do
-  let(:world) { RSpec::Core::World.new }
   let(:paths) { [Pathname.new(Dir.mktmpdir)] }
 
-  subject { described_class.new(world, paths) }
+  subject { described_class.new(paths) }
 
   before do
     # Force instantiation
