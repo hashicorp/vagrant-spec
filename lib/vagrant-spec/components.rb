@@ -5,22 +5,19 @@ require "vagrant-spec"
 module Vagrant
   module Spec
     class Components
-      def initialize(world, paths)
+      def initialize(paths)
         @paths = paths
-        @world = world
         reload!
       end
 
       # Loads the components from the given paths
       def reload!
-        with_world do
-          # Delete the existing example groups
-          @world.example_groups.clear
+        # Delete the existing example groups
+        RSpec.world.example_groups.clear
 
-          @paths.each do |path|
-            Dir.glob(File.join(path, "**/*_{output,spec}.rb")).each do |single|
-              load single
-            end
+        @paths.each do |path|
+          Dir.glob(File.join(path, "**/*_{output,spec}.rb")).each do |single|
+            load single
           end
         end
       end
@@ -30,11 +27,9 @@ module Vagrant
       # @return [Array<String>]
       def components
         [].tap do |result|
-          with_world do
-            RSpec.world.example_groups.each do |group|
-              next if !group.metadata.has_key?(:component)
-              result << group.metadata[:component]
-            end
+          RSpec.world.example_groups.each do |group|
+            next if !group.metadata.has_key?(:component)
+            result << group.metadata[:component]
           end
         end
       end
@@ -42,25 +37,15 @@ module Vagrant
       # Returns the defined provider features.
       def provider_features
         [].tap do |result|
-          with_world do
-            groups = RSpec.world.shared_example_group_registry.send(:shared_example_groups)
-            groups[:main].each do |name, _|
-              match = /^provider\/(.+?)$/.match(name)
-              result << match[1] if match
-            end
+          groups = RSpec.world.shared_example_group_registry.send(:shared_example_groups)
+          groups[:main].each do |name, _|
+            match = /^provider\/(.+?)$/.match(name)
+            result << match[1] if match
           end
         end
       end
 
       protected
-
-      def with_world
-        old_world = RSpec.world
-        RSpec.world = @world
-        yield
-      ensure
-        RSpec.world = old_world
-      end
 
       # This loads the default components that are packaged with
       # the vagrant-spec gem.
