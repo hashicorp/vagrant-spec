@@ -192,7 +192,7 @@ describe "vagrant CLI: box", component: "cli/box" do
 
       result = execute("vagrant", "box", "outdated", "--global")
       expect(result).to exit_with(0)
-      expect(result.stdout).to match_output(:box_outdated, "foo/bar", "0.7", "0.9")
+      expect(result.stdout).to match_output(:box_outdated, "foo/bar", "empty_provider", "0.7", "0.9")
     end
   end
 end

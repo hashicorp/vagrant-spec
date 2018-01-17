@@ -28,8 +28,8 @@ module Vagrant
     end
 
     # Tests that box is outdated
-    OutputTester[:box_outdated] = lambda do |text, name, old, new|
-      text =~ /'#{name}' is outdated! Current: #{old}\. Latest: #{new}/
+    OutputTester[:box_outdated] = lambda do |text, name, provider, old_v, new_v|
+      text =~ /'#{name}' for '#{provider}' is outdated! Current: #{old_v}\. Latest: #{new_v}/
     end
 
     # Tests that box is up to date
