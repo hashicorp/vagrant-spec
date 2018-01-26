@@ -20,6 +20,6 @@ shared_examples "provider/network/forwarded_port" do |provider, options|
 
   it "properly configures forwarded ports" do
     status("Test: TCP forwarded port (default)")
-    assert_network("http://localhost:#{port}/", port)
+    assert_network("http://127.0.0.1:#{port}/", port)
   end
 end
