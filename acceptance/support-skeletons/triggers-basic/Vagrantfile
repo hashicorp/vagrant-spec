@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  config.trigger.before :up do |trigger|
+    trigger.name = "Acceptance"
+    trigger.info = "Testing 1 2 3..."
+    trigger.run = {inline: "echo 'Hello before up'"}
+  end
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "Acceptance"
+    trigger.info = "Testing 1 2 3..."
+    trigger.run = {inline: "echo 'Hello after up'"}
+  end
+
+  config.trigger.before :destroy,
+    name: "DESTROY!!",
+    warn: "Testing 1 2 3...",
+    run: {inline: "echo 'Hello before destroy'"}
+
+  config.trigger.after :destroy,
+    name: "Destroyed",
+    warn: "Testing 1 2 3...",
+    run: {inline: "echo 'Hello after destroy'"}
+end
