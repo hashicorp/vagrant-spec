@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  config.trigger.before :up do |trigger|
+    trigger.name = "Failure"
+    trigger.warn = "I'm going to fail"
+    trigger.on_error = :continue
+    trigger.run_remote = {inline: "echo 'hiiiiiiii'"}
+  end
+
+  config.trigger.before :up do |trigger|
+    trigger.name = "Failure part 2"
+    trigger.warn = "Does not exist"
+    trigger.on_error = :continue
+    trigger.run = {path: "fail.sh"}
+  end
+
+  config.trigger.before :all do |trigger|
+    trigger.name = "ALL"
+    trigger.info = "Before the action!"
+    trigger.ignore = :destroy
+    trigger.run = {path: "script.sh"}
+  end
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "Acceptance Advanced"
+    trigger.only_on = /machine/
+    trigger.run_remote = {path: "script.sh"}
+  end
+
+  config.vm.define "spec-box" do |v|
+    v.vm.hostname = "vagrant-spec.local"
+    v.trigger.after :up,
+      info: "Only spec-box"
+  end
+
+  config.vm.define "machine-box" do |v|
+    v.vm.hostname = "machine-box.local"
+  end
+end
