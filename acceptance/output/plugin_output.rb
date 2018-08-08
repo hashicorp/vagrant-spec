@@ -13,7 +13,7 @@ module Vagrant
 
     # Tests that plugin list shows a plugin
     OutputTester[:plugin_list_plugin] = lambda do |text, name, version|
-      text =~ /^#{name} \(#{version}\, global)$/
+      text =~ /^#{name} \(#{version}, global\)$/
     end
 
     # Tests that Vagrant plugin install fails to a plugin not found
