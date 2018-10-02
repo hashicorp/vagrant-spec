@@ -6,7 +6,7 @@ shared_examples "provider/network/forwarded_port" do |provider, options|
 
   include_context "acceptance"
 
-  let(:port){ 8080 }
+  let(:port){ rand(6000) + 3000 }
 
   before do
     environment.skeleton("network_forwarded_port")
