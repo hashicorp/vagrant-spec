@@ -2,6 +2,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "box"
 
   config.vm.provision "chef_solo" do |chef|
+    chef.custom_config_path = "CustomConfiguration.chef"
     chef.cookbooks_path = "basic/cookbooks"
     chef.run_list = ["recipe[foo]"]
   end
