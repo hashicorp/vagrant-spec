@@ -2,14 +2,11 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - 'CHANGELOG.md'
-      - 'website/**'
 
 jobs:
   build-gem:
-    if: github.repository == 'hashicorp/vagrant'
-    name: Build Vagrant RubyGem
+    if: github.repository == 'hashicorp/vagrant-spec'
+    name: Build Vagrant-Spec RubyGem
     runs-on: ubuntu-18.04
     steps:
       - name: Code Checkout
