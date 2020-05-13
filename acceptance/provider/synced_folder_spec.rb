@@ -29,5 +29,12 @@ shared_examples "provider/synced_folder" do |provider, options|
     status("Test: doesn't mount a disabled folder")
     result = execute("vagrant", "ssh", "-c", "test -d /foo")
     expect(result.exit_code).to eql(1)
+
+    status("Test: persists a sync folder after a manual reboot")
+    result = execute("vagrant", "ssh", "-c", "sudo reboot")
+    expect(result).to exit_with(255)
+    result = execute("vagrant", "ssh", "-c", "cat /vagrant/foo")
+    expect(result.exit_code).to eql(0)
+    expect(result.stdout).to match(/hello$/)
   end
 end
