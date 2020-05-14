@@ -36,5 +36,9 @@ shared_examples "provider/synced_folder" do |provider, options|
     result = execute("vagrant", "ssh", "-c", "cat /vagrant/foo")
     expect(result.exit_code).to eql(0)
     expect(result.stdout).to match(/hello$/)
+
+    status("Test: guest has permissions to write to synced folder")
+    result = execute("vagrant", "ssh", "-c", "echo goodbye > /vagrant/bar")
+    expect(result.exit_code).to eql(0)
   end
 end
