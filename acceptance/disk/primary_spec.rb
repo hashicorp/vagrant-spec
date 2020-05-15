@@ -28,7 +28,7 @@ shared_examples "provider/disk/primary" do |provider, options|
     expect(result.stdout).to match(/69793218560$/)
 
     status("Test: primary disk is not removed")
-    environment.skeleton("init")
+    environment.skeleton("disk_empty")
     assert_execute("vagrant", "reload")
     result = execute("vagrant", "ssh", "-c", "test -b /dev/sda")
     expect(result.exit_code).to eql(0)

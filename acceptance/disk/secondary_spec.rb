@@ -28,7 +28,7 @@ shared_examples "provider/disk/secondary" do |provider, options|
     expect(result.stdout).to match(/134217728$/)
 
     status("Test: secondary disk should disappear")
-    environment.skeleton("init")
+    environment.skeleton("disk_empty")
     assert_execute("vagrant", "reload")
     result = execute("vagrant", "ssh", "-c", "test -b /dev/sdb")
     expect(result.exit_code).to eql(1)
