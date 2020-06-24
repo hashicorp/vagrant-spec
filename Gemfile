@@ -6,3 +6,5 @@ if File.exist?(File.expand_path("../../vagrant", __FILE__))
 else
   gem "vagrant", git: "https://github.com/mitchellh/vagrant.git"
 end
+
+gem 'dotenv'
