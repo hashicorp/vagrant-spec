@@ -30,6 +30,10 @@ shared_examples "provider/synced_folder" do |provider, options|
     result = execute("vagrant", "ssh", "-c", "test -d /foo")
     expect(result.exit_code).to eql(1)
 
+    status("Test: guest has permissions to write to synced folder")
+    result = execute("vagrant", "ssh", "-c", "echo goodbye > /vagrant/bar")
+    expect(result.exit_code).to eql(0)
+
     status("Test: persists a sync folder after a manual reboot")
     result = execute("vagrant", "ssh", "-c", "sudo reboot")
     expect(result).to exit_with(255)
@@ -37,8 +41,14 @@ shared_examples "provider/synced_folder" do |provider, options|
     expect(result.exit_code).to eql(0)
     expect(result.stdout).to match(/hello$/)
 
-    status("Test: guest has permissions to write to synced folder")
-    result = execute("vagrant", "ssh", "-c", "echo goodbye > /vagrant/bar")
+    status("Test: persists a sync folder after a provisioner reboot")
+    result = execute("vagrant", "provision", "--provision-with", "reboot")
     expect(result.exit_code).to eql(0)
+    # Need to do a manual sleep here because Vagrant doesn't know that the
+    # machine is rebooting
+    sleep 10
+    result = execute("vagrant", "ssh", "-c", "cat /vagrant/foo")
+    expect(result.exit_code).to eql(0)
+    expect(result.stdout).to match(/hello$/)
   end
 end

@@ -3,4 +3,7 @@ Vagrant.configure("2") do |config|
 
   # Test that disabled works
   config.vm.synced_folder "../", "/foo", disabled: true
+
+  # Test that synced folders persist after provisioner reboot
+  config.vm.provision "reboot", type: :shell, inline: "reboot", run: "never"
 end
