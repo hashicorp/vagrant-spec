@@ -4,5 +4,5 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant-smb", type: "smb", smb_username: ENV["VAGRANT_SMB_USERNAME"], smb_password: ENV["VAGARANT_SMB_PASSWORD"]
   config.vm.synced_folder ".", "/foo", type: "smb", disabled: true
   # Guest should persist mounts after reboot
-  config.vm.provision "shell", inline: "echo goodbye", reboot: true
+  config.vm.provision "reboot", type: :shell, inline: "echo goodbye", reboot: true, run: "never"
 end
