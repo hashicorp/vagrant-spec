@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-gem:
+    if: github.repository == 'hashicorp/vagrant-spec'
+    name: Build Vagrant-Spec RubyGem
+    runs-on: self-hosted
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v1
+      - name: Set Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Build RubyGem
+        run: ./.ci/build.sh
+        working-directory: ${{github.workspace}}
+        env:
+          ASSETS_LONGTERM_PREFIX: elt
+          ASSETS_PRIVATE_BUCKET: ${{ secrets.ASSETS_PRIVATE_BUCKET }}
+          ASSETS_PRIVATE_LONGTERM: ${{ secrets.ASSETS_PRIVATE_LONGTERM }}
+          ASSETS_PRIVATE_SHORTTERM: ${{ secrets.ASSETS_PRIVATE_SHORTTERM }}
+          ASSETS_SHORTTERM_PREFIX: est
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
