@@ -7,7 +7,7 @@ jobs:
   build-gem:
     if: github.repository == 'hashicorp/vagrant-spec'
     name: Build Vagrant-Spec RubyGem
-    runs-on: self-hosted
+    runs-on: ubuntu-18.04
     steps:
       - name: Code Checkout
         uses: actions/checkout@v1
