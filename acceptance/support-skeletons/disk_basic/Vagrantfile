@@ -1,0 +1,7 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  config.vm.disk :disk, name: "primary", primary: true, size: 69793218560
+  config.vm.disk :disk, name: "secondary", size: "1MB"
+  config.vm.disk :dvd, name: "dvd", file: "./example.iso"
+end
