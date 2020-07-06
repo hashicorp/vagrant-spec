@@ -4,7 +4,7 @@ RSpec::Matchers.define :exit_with do |code|
     actual.exit_code == code
   end
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected command to exit with #{code} but got exit code: #{actual.exit_code}\n\n" +
       "stdout: #{actual.stdout}\n\n" +
       "stderr: #{actual.stderr}"

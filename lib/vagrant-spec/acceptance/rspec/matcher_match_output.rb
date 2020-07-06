@@ -8,7 +8,7 @@ RSpec::Matchers.define :match_output do |expected, *args|
     Vagrant::Spec::OutputTester.matches?(actual, expected, *args)
   end
 
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected output to match: #{expected} #{args.inspect}\n\n" +
       "output: #{actual}"
   end
