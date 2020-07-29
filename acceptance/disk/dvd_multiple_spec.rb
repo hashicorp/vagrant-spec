@@ -16,7 +16,7 @@ shared_examples "provider/disk/dvd_multiple" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "attaches multiple dvds" do
+  it "attaches multiple dvds", :skip_windows_guest do
     status("Test: all dvds should be attached")
     (0..3).each do |n|
       result = execute("vagrant", "ssh", "-c", "test -b /dev/sr#{n}")

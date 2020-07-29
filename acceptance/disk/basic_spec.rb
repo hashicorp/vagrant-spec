@@ -16,7 +16,7 @@ shared_examples "provider/disk/basic" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "configures storage mediums" do
+  it "configures storage mediums", :skip_windows_guest do
     status("Test: primary disk is resized")
     result = execute("vagrant", "ssh", "-c", "sudo blockdev --getsize64 /dev/sda")
     expect(result.exit_code).to eql(0)

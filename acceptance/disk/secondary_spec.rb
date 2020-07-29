@@ -16,7 +16,7 @@ shared_examples "provider/disk/secondary" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "configures a secondary disk" do
+  it "configures a secondary disk", :skip_windows_guest do
     status("Test: secondary disk should be attached")
     result = execute("vagrant", "ssh", "-c", "test -b /dev/sdb")
     expect(result.exit_code).to eql(0)

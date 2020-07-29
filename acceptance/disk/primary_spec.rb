@@ -16,7 +16,7 @@ shared_examples "provider/disk/primary" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "configures the primary disk" do
+  it "configures the primary disk", :skip_windows_guest do
     status("Test: primary disk should be attached")
     result = execute("vagrant", "ssh", "-c", "test -b /dev/sda")
     expect(result.exit_code).to eql(0)

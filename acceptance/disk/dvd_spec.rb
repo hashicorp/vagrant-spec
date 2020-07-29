@@ -16,7 +16,7 @@ shared_examples "provider/disk/dvd" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "attaches and removes an optical drive" do
+  it "attaches and removes an optical drive", :skip_windows_guest do
     status("Test: drive is attached")
     result = execute("vagrant", "ssh", "-c", "test -b /dev/sr0")
     expect(result.exit_code).to eql(0)
