@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "childprocess", "~> 3.0.0"
+  spec.add_dependency "childprocess"
   spec.add_dependency "log4r", "~> 1.1.9"
   spec.add_dependency "rspec", "~> 3.5.0"
   spec.add_dependency "thor", "~> 0.18.1"
