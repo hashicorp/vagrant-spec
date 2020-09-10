@@ -16,7 +16,7 @@ shared_examples "provider/synced_folder/smb" do |provider, options|
     assert_execute("vagrant", "destroy", "--force")
   end
 
-  it "properly configures SMB" do
+  it "properly configures SMB", :skip_windows_guest do
     status("Test: does initial smb sync")
     result = execute("vagrant", "ssh", "-c", "cat /vagrant-smb/foo")
     expect(result).to exit_with(0)
