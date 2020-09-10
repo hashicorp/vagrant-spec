@@ -1,0 +1,6 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  # Test attaching a secondary disk
+  config.vm.disk :disk, name: "secondary", size: 67108864
+end

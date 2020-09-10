@@ -1,0 +1,6 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "box"
+
+  # Test configuring a primary disk
+  config.vm.disk :disk, primary: true, name: "primary", size: "64GB"
+end
