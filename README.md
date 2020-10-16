@@ -72,7 +72,7 @@ If you want to use the latest (from git) of `vagrant-spec`, you
 should add the git dependency to your `Gemfile`:
 
 ```
-gem 'vagrant-spec', git: "https://github.com/mitchellh/vagrant-spec.git"
+gem 'vagrant-spec', git: "https://github.com/hashicorp/vagrant-spec.git"
 ```
 
 `vagrant-spec` can then be executed by being prefixed with
@@ -105,7 +105,7 @@ end
 ```
 
 The available options for `c` and their defaults are fully documented
-in [the configuration source file](https://github.com/mitchellh/vagrant-spec/blob/master/lib/vagrant-spec/acceptance/configuration.rb). Please read through the documentation thoroughly and
+in [the configuration source file](https://github.com/hashicorp/vagrant-spec/blob/main/lib/vagrant-spec/acceptance/configuration.rb). Please read through the documentation thoroughly and
 implement what you need.
 
 ### Running
@@ -152,7 +152,7 @@ With that in place, you should be able to run provider's components with
 `vagrant-spec test`. For the complete list, please run `vagrant-spec components`.
 
 _The code example might get outdated while we don't have a stable release,
-please refer to [Vagrant's configuration](https://github.com/mitchellh/vagrant/blob/master/vagrant-spec.config.example.rb)
+please refer to [Vagrant's configuration](https://github.com/hashicorp/vagrant/blob/main/vagrant-spec.config.example.rb)
 in case things are not working for you_
 
 ## Writing Acceptance Tests
@@ -273,7 +273,7 @@ And you can now run the tests!
 
 The "acceptance" context defines many helpers for executing
 Vagrant within an isolated environment and setting up that
-environment. [See the context source file for detailed docs](https://github.com/mitchellh/vagrant-spec/blob/master/lib/vagrant-spec/acceptance/rspec/context.rb).
+environment. [See the context source file for detailed docs](https://github.com/hashicorp/vagrant-spec/blob/main/lib/vagrant-spec/acceptance/rspec/context.rb).
 
 The key features of the context are:
 
@@ -284,7 +284,7 @@ The key features of the context are:
 
 * `environment` is the actual instance of the "IsolatedEnvironment"
   class. It most importantly allows for skeletons to be used to
-  create complex directory setups. [See the IsolatedEnvironment source for more docs.](https://github.com/mitchellh/vagrant-spec/blob/master/lib/vagrant-spec/acceptance/isolated_environment.rb)
+  create complex directory setups. [See the IsolatedEnvironment source for more docs.](https://github.com/hashicorp/vagrant-spec/blob/main/lib/vagrant-spec/acceptance/isolated_environment.rb)
 
 #### Matcher: "exit_with"
 
