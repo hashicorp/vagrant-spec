@@ -35,8 +35,13 @@ shared_examples "provider/synced_folder" do |provider, options|
     expect(result.exit_code).to eql(0)
 
     status("Test: persists a sync folder after a manual reboot")
-    result = execute("vagrant", "ssh", "-c", "sudo reboot")
+    # Need to add a sleep here to make sure that the command will be executed for
+    # long enough to be killed by the reboot and exit with code 255, confirming the reboot
+    result = execute("vagrant", "ssh", "-c", "sudo reboot && sleep 30")
     expect(result).to exit_with(255)
+    # Need to do a manual sleep here because Vagrant doesn't know that the
+    # machine is rebooting
+    sleep 10
     result = execute("vagrant", "ssh", "-c", "cat /vagrant/foo")
     expect(result.exit_code).to eql(0)
     expect(result.stdout).to match(/hello$/)
