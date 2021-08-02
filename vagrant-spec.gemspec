@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Tool and library for testing Vagrant plugins}
   spec.summary       = %q{Tool and library for testing Vagrant plugins.}
   spec.homepage      = "https://github.com/mitchellh/vagrant-spec"
-  spec.license       = "MPL2"
+  spec.license       = "MPL-2.0"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
