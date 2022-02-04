@@ -43,7 +43,11 @@ module Vagrant
       def execute(command, *args, **options)
         # Create the command
         command = replace_command(command)
-        command = Which.which(command)
+        # Use provided command if it is a valid executable
+        if !File.executable?(command)
+          # If it's not a valid executable, search for vagrant
+          command = Which.which(command)
+        end
 
         # Build up the options
         options[:env] = @env
