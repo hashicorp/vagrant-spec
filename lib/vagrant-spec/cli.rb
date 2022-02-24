@@ -28,8 +28,13 @@ module Vagrant
       def test
         load_config
 
-        Acceptance::Runner.new(paths: Acceptance.config.component_paths).
-          run(options[:components], example: options[:example], without_components: options[:without_components])
+        status = Acceptance::Runner.new(paths: Acceptance.config.component_paths)
+                                   .run(
+                                     options[:components],
+                                     example: options[:example],
+                                     without_components: options[:without_components]
+                                   )
+        exit(status) if status != 0
       end
 
       protected
