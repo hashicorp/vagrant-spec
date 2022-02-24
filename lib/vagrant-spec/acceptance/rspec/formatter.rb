@@ -1,4 +1,5 @@
 require "rspec/core/formatters/documentation_formatter"
+require "rspec/legacy_formatters"
 
 module Vagrant
   module Spec
