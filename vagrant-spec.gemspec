@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'vagrant-spec/version'
@@ -21,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "childprocess"
   spec.add_dependency "log4r", "~> 1.1.9"
   spec.add_dependency "rspec", "~> 3.10"
+  spec.add_dependency "rspec-legacy_formatters", "~> 1.0"
   spec.add_dependency "thor", "~> 0.18.1"
 
   spec.add_development_dependency "rake"
