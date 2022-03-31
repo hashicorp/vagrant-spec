@@ -1,32 +1,40 @@
 require "rspec/core/formatters/documentation_formatter"
-require "rspec/legacy_formatters"
 
 module Vagrant
   module Spec
     module Acceptance
       class Formatter < RSpec::Core::Formatters::DocumentationFormatter
-        def example_failed(example)
+        RSpec::Core::Formatters.register(
+          self,
+          :example_failed,
+          :example_passed,
+          :example_pending,
+          :example_started,
+          :message,
+        )
+
+        def example_failed(failed_example_notification)
           super
           @group_level -= 1
         end
 
-        def example_passed(example)
+        def example_passed(example_notification)
           super
           @group_level -= 1
         end
 
-        def example_pending(example)
+        def example_pending(example_notification)
           super
           @group_level -= 1
         end
 
-        def example_started(example)
-          output.puts "#{current_indentation}#{example.description.strip}"
+        def example_started(example_notification)
+          output.puts "#{current_indentation}#{example_notification.example.description.strip}"
           @group_level += 1
         end
 
-        def message(message)
-          output.puts "#{current_indentation}#{message}"
+        def message(message_notification)
+          output.puts "#{current_indentation}#{message_notification.message}"
         end
       end
     end

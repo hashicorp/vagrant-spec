@@ -30,7 +30,7 @@ shared_context "acceptance" do
   # Creates a new isolated environment instance each time it is called.
   #
   # @return [Acceptance::IsolatedEnvironment]
-  def new_environment(env=nil)
+  def new_environment(env = nil)
     apps = { "vagrant" => config.vagrant_path }
     env  = config.env.merge(env || {})
     env.merge!(extra_env)
