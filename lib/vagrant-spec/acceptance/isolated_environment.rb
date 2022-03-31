@@ -17,6 +17,7 @@ module Vagrant
         super()
 
         @logger = Log4r::Logger.new("test::acceptance::isolated_environment")
+        @logger.outputters = Log4r::Outputter.stdout
 
         @apps = (apps || {}).dup
         @env  = (env || {}).dup
@@ -53,6 +54,10 @@ module Vagrant
         options[:env] = @env
         options[:notify] = [:stdin, :stderr, :stdout]
         options[:workdir] = @workdir.to_s
+
+        args[0, 0] = [
+          "-VVVV",
+        ]
 
         # Execute, logging out the stdout/stderr as we get it
         @logger.info("Executing: #{[command].concat(args).inspect}")
