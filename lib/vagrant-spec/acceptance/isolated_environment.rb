@@ -17,7 +17,7 @@ module Vagrant
         super()
 
         @logger = Log4r::Logger.new("test::acceptance::isolated_environment")
-        @logger.outputters = Log4r::Outputter.stdout
+        @logger.outputters = Log4r::FileOutputter.new("vagrant-spec", filename: "vagrant-spec.log")
 
         @apps = (apps || {}).dup
         @env  = (env || {}).dup
