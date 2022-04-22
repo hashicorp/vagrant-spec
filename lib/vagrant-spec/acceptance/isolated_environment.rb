@@ -29,6 +29,12 @@ module Vagrant
         @env["HOME"] = @homedir.to_s
         @env["VAGRANT_HOME"] = @homedir.to_s
 
+        # Set all gogo paths to isolated dirs
+        @env["VAGRANT_CONFIG"] = @configdir.to_s
+        @env["VAGRANT_CACHE"] = @cachedir.to_s
+        @env["VAGRANT_DATA"] = @datadir.to_s
+        @env["VAGRANT_TMP"] = @tmpdir.to_s
+
         # Replace some special variables
         @env.each do |k, v|
           @env[k] = @homedir.to_s if v == "{{homedir}}"

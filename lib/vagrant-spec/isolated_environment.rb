@@ -15,6 +15,11 @@ module Vagrant
       attr_reader :homedir
       attr_reader :workdir
 
+      attr_reader :configdir
+      attr_reader :cachedir
+      attr_reader :datadir
+      attr_reader :tmpdir
+
       # Initializes an isolated environment. You can pass in some
       # options here to configure runing custom applications in place
       # of others as well as specifying environmental variables.
@@ -28,11 +33,14 @@ module Vagrant
         @tempdir = Pathname.new(Dir.mktmpdir)
 
         # Setup the home and working directories
-        @homedir = @tempdir.join("home")
-        @workdir = @tempdir.join("work")
+        @homedir = @tempdir.join("home").tap(&:mkdir)
+        @workdir = @tempdir.join("work").tap(&:mkdir)
 
-        @homedir.mkdir
-        @workdir.mkdir
+        # Setup the dirs needed for gogo
+        @configdir = @tempdir.join("config").tap(&:mkdir)
+        @cachedir = @tempdir.join("cache").tap(&:mkdir)
+        @datadir = @tempdir.join("data").tap(&:mkdir)
+        @tmpdir = @tempdir.join("tmp").tap(&:mkdir)
       end
 
       # This closes the environment by cleaning it up.
