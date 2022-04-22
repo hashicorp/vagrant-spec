@@ -17,7 +17,10 @@ module Vagrant
         super()
 
         @logger = Log4r::Logger.new("test::acceptance::isolated_environment")
-        @logger.outputters = Log4r::FileOutputter.new("vagrant-spec", filename: "/tmp/vagrant-spec.log")
+
+        if log_path
+          @logger.outputters = Log4r::FileOutputter.new("vagrant-spec", filename: log_path)
+        end
 
         @apps = (apps || {}).dup
         @env  = (env || {}).dup
@@ -41,6 +44,10 @@ module Vagrant
         end
       end
 
+      def log_path
+        ENV["VAGRANT_SPEC_LOG_PATH"]
+      end
+
       # Executes a command in the context of this isolated environment.
       # Any command executed will therefore see our temporary directory
       # as the home directory.
@@ -60,10 +67,6 @@ module Vagrant
         options[:env] = @env
         options[:notify] = [:stdin, :stderr, :stdout]
         options[:workdir] = @workdir.to_s
-
-        args[0, 0] = [
-          "-VVVV",
-        ]
 
         # Execute, logging out the stdout/stderr as we get it
         @logger.info("Executing: #{[command].concat(args).inspect}")
