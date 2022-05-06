@@ -18,14 +18,16 @@ module Vagrant
 
         @logger = Log4r::Logger.new("test::acceptance::isolated_environment")
 
-        if log_path
-          @logger.outputters = Log4r::FileOutputter.new("vagrant-spec", filename: log_path)
-        end
-
         @apps = (apps || {}).dup
         @env  = (env || {}).dup
         @skeleton_paths = (skeleton_paths || []).map do |path|
           Pathname.new(path)
+        end
+
+        if log_path
+          @logger.outputters = Log4r::FileOutputter.new("vagrant-spec", filename: log_path)
+          @env["VAGRANT_LOG"] = "trace"
+          @env["VAGRANT_LOG_LEVEL"] = "trace"
         end
 
         # Set the home directory for any apps we execute
