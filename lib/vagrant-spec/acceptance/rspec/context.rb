@@ -23,8 +23,12 @@ shared_context "acceptance" do
     config.skeleton_paths.dup.unshift(root)
   end
 
-  after(:each) do
-    environment.close
+  after(:each) do |example|
+    if example.exception.nil? || config.clean_on_fail
+      environment.close
+    else
+      example.reporter.message("Temporary work and home dirs (#{environment.workdir} and #{environment.homedir}) not removed to allow debug")
+    end
   end
 
   # Creates a new isolated environment instance each time it is called.

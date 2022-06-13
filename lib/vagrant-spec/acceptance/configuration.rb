@@ -37,6 +37,12 @@ module Vagrant
         # different depending on mode.
         attr_accessor :run_mode
 
+        # Remove isolated environment on example failure. By default this
+        # is set to be true, but can be disabled by setting to false which
+        # will result in teardown skipping removal and messaging the output
+        # as to the paths retained.
+        attr_accessor :clean_on_fail
+
         def initialize
           @component_paths = [
             Vagrant::Spec.source_root.join("acceptance"),
@@ -48,6 +54,7 @@ module Vagrant
           @skeleton_paths = []
           @vagrant_path   = "vagrant"
           @run_mode       = "standalone"
+          @clean_on_fail  = true
         end
 
         # Tells vagrant-spec to acceptance test a certain provider.
