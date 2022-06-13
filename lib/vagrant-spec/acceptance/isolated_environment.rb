@@ -50,7 +50,7 @@ module Vagrant
         end
 
         # Build up the options
-        options[:env] = @env
+        options[:env] = @env.merge(options[:extra_env] || {})
         options[:notify] = [:stdin, :stderr, :stdout]
         options[:workdir] = @workdir.to_s
 
