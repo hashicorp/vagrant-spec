@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # This verifies that the given subprocess command exits with the right code.
 RSpec::Matchers.define :exit_with do |code|
   match do |actual|

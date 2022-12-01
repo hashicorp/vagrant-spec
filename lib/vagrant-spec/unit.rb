@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # This file should be required as the base for all unit related
 # tests. It configures the test runner as well if it can detect one.
 

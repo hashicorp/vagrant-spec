@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # This tests that packaging works with a given provider.
 shared_examples "provider/package" do |provider, options|
   if !options[:box]

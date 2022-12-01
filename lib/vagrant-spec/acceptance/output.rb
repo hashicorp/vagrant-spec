@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 module Vagrant
   module Spec
     # OutputTester tests text for output by checking against a global

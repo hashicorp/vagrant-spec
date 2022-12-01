@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 module VSHB
   class Plugin < Vagrant.plugin("2")
     name "vshb"

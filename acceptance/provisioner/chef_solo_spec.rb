@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 shared_examples "provider/provisioner/chef-solo" do |provider, options|
   box = options[:box_chef] || options[:box]
   if !box

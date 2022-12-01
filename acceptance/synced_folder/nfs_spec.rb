@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 shared_examples "provider/synced_folder/nfs" do |provider, options|
   if !options[:box]
     raise ArgumentError,

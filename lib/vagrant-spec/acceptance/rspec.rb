@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # The RSpec helpers
 require_relative "rspec/context"
 require_relative "rspec/formatter"
