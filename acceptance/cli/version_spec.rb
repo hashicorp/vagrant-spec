@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 describe "vagrant CLI: version", component: "cli/version" do
   include_context "acceptance"
 

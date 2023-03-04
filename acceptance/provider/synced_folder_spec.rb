@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # This tests that synced folders work with a given provider.
 shared_examples "provider/synced_folder" do |provider, options|
   if !options[:box]

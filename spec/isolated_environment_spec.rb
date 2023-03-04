@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 require "vagrant-spec/isolated_environment"
 
 describe Vagrant::Spec::IsolatedEnvironment do

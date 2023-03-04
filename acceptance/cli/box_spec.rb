@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 describe "vagrant CLI: box", component: "cli/box" do
   include_context "acceptance"
 

@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 shared_examples "provider/provisioner/docker" do |provider, options|
   box = options[:box_docker] || options[:box]
   if !box

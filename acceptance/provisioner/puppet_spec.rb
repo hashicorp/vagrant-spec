@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 shared_examples "provider/provisioner/puppet" do |provider, options|
   box = options[:box_puppet] || options[:box]
   if !box

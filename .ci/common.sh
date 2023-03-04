@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # last-modified: Mon Jun 15 19:58:02 UTC 2020
 #!/usr/bin/env bash
 

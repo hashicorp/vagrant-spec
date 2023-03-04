@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 shared_examples "provider/network/private_network" do |provider, options|
   if !options[:box]
     raise ArgumentError,
