@@ -24,8 +24,8 @@ module Vagrant
       READ_CHUNK_SIZE = 4096
 
       # Convenience method for executing a method.
-      def self.execute(command, *args, &block)
-        new(command, *args).execute(&block)
+      def self.execute(command, *args, **options, &block)
+        new(command, *args, **options).execute(&block)
       end
 
       def initialize(command, *args, **options)
