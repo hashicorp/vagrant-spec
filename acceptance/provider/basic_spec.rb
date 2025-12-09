@@ -1,4 +1,4 @@
-# Copyright (c) HashiCorp, Inc.
+# Copyright IBM Corp. 2013, 2023
 # SPDX-License-Identifier: MPL-2.0
 
 # This tests the basic functionality of a provider: that it can run

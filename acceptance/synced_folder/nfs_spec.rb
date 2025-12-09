@@ -1,4 +1,4 @@
-# Copyright (c) HashiCorp, Inc.
+# Copyright IBM Corp. 2013, 2023
 # SPDX-License-Identifier: MPL-2.0
 
 shared_examples "provider/synced_folder/nfs" do |provider, options|
