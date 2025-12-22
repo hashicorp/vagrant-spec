@@ -1,4 +1,4 @@
-# Copyright (c) HashiCorp, Inc.
+# Copyright IBM Corp. 2013, 2023
 # SPDX-License-Identifier: MPL-2.0
 
 # This verifies that the given subprocess command exits with the right code.
