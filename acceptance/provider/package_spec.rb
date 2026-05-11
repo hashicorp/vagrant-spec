@@ -1,4 +1,4 @@
-# Copyright IBM Corp. 2013, 2023
+# Copyright IBM Corp. 2013, 2026
 # SPDX-License-Identifier: MPL-2.0
 
 # This tests that packaging works with a given provider.
